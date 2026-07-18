@@ -1,0 +1,167 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model BookingSeat {
+  id         Int      @id @default(autoincrement())
+
+  bookingId  Int
+  booking    Booking  @relation(fields: [bookingId], references: [id])
+
+  seatNumber String
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  mobile    String?
+  password  String
+  role      String   @default("USER")
+  createdAt DateTime @default(now())
+
+  bookings  Booking[]
+  votes     Vote[]
+}
+
+model Movie {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+
+  poster      String
+  backdrop    String
+  trailerUrl  String?
+
+  genre       String
+  language    String
+  duration    String
+
+  imdbRating  Float
+  releaseYear Int
+  
+
+  isActive    Boolean  @default(false)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  shows       Show[]
+  votes       Vote[]
+  polls PollMovie[]
+}
+
+model Show {
+  id          Int      @id @default(autoincrement())
+
+  movieId     Int
+  movie       Movie    @relation(fields: [movieId], references: [id])
+
+  showDate    DateTime
+  showTime    String
+
+  totalSeats  Int      @default(174)
+
+  isActive    Boolean  @default(true)
+
+  bookingOpen Boolean  @default(true)
+
+  createdAt   DateTime @default(now())
+
+  bookings    Booking[]
+}
+
+model Booking {
+  id            Int      @id @default(autoincrement())
+  bookingNumber String   @unique
+
+  userId        Int
+  user          User     @relation(fields: [userId], references: [id])
+
+  showId        Int
+  show          Show     @relation(fields: [showId], references: [id])
+
+  numberOfSeats Int
+
+  remarks       String?
+
+  status        BookingStatus @default(CONFIRMED)
+
+  bookedAt      DateTime @default(now())
+
+  seats         BookingSeat[]
+}
+
+model Vote {
+  id        Int      @id @default(autoincrement())
+
+  userId    Int
+  movieId   Int
+  pollId    Int
+
+  createdAt DateTime @default(now())
+
+  user       User     @relation(fields: [userId], references: [id])
+  movie      Movie    @relation(fields: [movieId], references: [id])
+  poll       Poll     @relation(fields: [pollId], references: [id])
+
+  @@unique([userId, pollId])
+}
+
+model Announcement {
+  id        Int      @id @default(autoincrement())
+  title     String
+  message   String
+  priority  String   @default("NORMAL")
+
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
+
+model Poll {
+  id          Int      @id @default(autoincrement())
+
+  title       String
+
+  startsAt    DateTime
+  endsAt      DateTime
+
+  isActive    Boolean  @default(true)
+
+  winningMovieId Int?
+
+  createdAt   DateTime @default(now())
+
+ votes  Vote[]
+ movies PollMovie[]
+}
+
+model PollMovie {
+  id       Int @id @default(autoincrement())
+
+  pollId   Int
+  movieId  Int
+
+  poll      Poll   @relation(fields: [pollId], references: [id])
+  movie     Movie  @relation(fields: [movieId], references: [id])
+
+  @@unique([pollId, movieId])
+}
+
+model GalleryImage {
+  id        Int      @id @default(autoincrement())
+
+  imageUrl  String
+
+  createdAt DateTime @default(now())
+}
+
+enum BookingStatus {
+  CONFIRMED
+  CANCELLED
+}
