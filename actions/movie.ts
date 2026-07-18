@@ -47,6 +47,65 @@ revalidatePath("/admin");
     };
   }
 }
+export async function createMovie(formData: FormData) {
+  try {
+    const poster = formData.get("poster") as File;
+    const backdrop = formData.get("backdrop") as File;
+
+    const posterPath = await saveImage(
+      poster,
+      "posters"
+    );
+
+    const backdropPath = await saveImage(
+      backdrop,
+      "backdrops"
+    );
+
+    await prisma.movie.create({
+      data: {
+        title: formData.get("title") as string,
+
+        description:
+          formData.get("description") as string,
+
+        genre:
+          formData.get("genre") as string,
+
+        language:
+          formData.get("language") as string,
+
+        duration:
+          formData.get("duration") as string,
+
+        imdbRating: Number(
+          formData.get("imdbRating")
+        ),
+
+        releaseYear: Number(
+          formData.get("releaseYear")
+        ),
+
+        trailerUrl:
+          (formData.get("trailerUrl") as string) ||
+          null,
+
+        poster: posterPath,
+
+        backdrop: backdropPath,
+      },
+    });
+
+    revalidatePath("/admin/movies");
+    revalidatePath("/");
+    revalidatePath("/admin");
+
+    redirect("/admin/movies");
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+}
 
 export async function updateMovie(
   movieId: number,
