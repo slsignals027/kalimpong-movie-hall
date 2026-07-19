@@ -1,6 +1,4 @@
-import { writeFile } from "fs/promises";
-import { join } from "path";
-import { v4 as uuid } from "uuid";
+import cloudinary from "./cloudinary";
 
 export async function saveImage(
   file: File,
@@ -13,18 +11,22 @@ export async function saveImage(
   const bytes = await file.arrayBuffer();
   const buffer = Buffer.from(bytes);
 
-  const extension = file.name.split(".").pop();
+  return new Promise<string>((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream(
+      {
+        folder: `kalimpong-movie-hall/${folder}`,
+        resource_type: "image",
+      },
+      (error, result) => {
+        if (error) {
+          reject(error);
+          return;
+        }
 
-  const filename = `${uuid()}.${extension}`;
+        resolve(result!.secure_url);
+      }
+    );
 
-  const path = join(
-    process.cwd(),
-    "public",
-    folder,
-    filename
-  );
-
-  await writeFile(path, buffer);
-
-  return `/${folder}/${filename}`;
+    stream.end(buffer);
+  });
 }

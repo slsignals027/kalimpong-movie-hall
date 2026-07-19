@@ -129,36 +129,21 @@ export async function updateMovie(
     const backdrop = formData.get("backdrop") as File;
 
     // Replace Poster
-    if (poster && poster.size > 0) {
-      if (movie.poster) {
-        try {
-          await unlink(
-            join(process.cwd(), "public", movie.poster)
-          );
-        } catch {}
-      }
+    // Replace Poster
+if (poster && poster.size > 0) {
+  posterPath = await saveImage(
+    poster,
+    "posters"
+  );
+}
 
-      posterPath = await saveImage(
-        poster,
-        "posters"
-      );
-    }
-
-    // Replace Backdrop
-    if (backdrop && backdrop.size > 0) {
-      if (movie.backdrop) {
-        try {
-          await unlink(
-            join(process.cwd(), "public", movie.backdrop)
-          );
-        } catch {}
-      }
-
-      backdropPath = await saveImage(
-        backdrop,
-        "backdrops"
-      );
-    }
+// Replace Backdrop
+if (backdrop && backdrop.size > 0) {
+  backdropPath = await saveImage(
+    backdrop,
+    "backdrops"
+  );
+}
 
     await prisma.movie.update({
       where: {
@@ -221,22 +206,7 @@ export async function updateMovie(
     if (!movie) return;
 
     // Delete Poster
-    if (movie.poster) {
-      try {
-        await unlink(
-          join(process.cwd(), "public", movie.poster)
-        );
-      } catch {}
-    }
-
-    // Delete Backdrop
-    if (movie.backdrop) {
-      try {
-        await unlink(
-          join(process.cwd(), "public", movie.backdrop)
-        );
-      } catch {}
-    }
+    
 
     await prisma.movie.delete({
       where: {
