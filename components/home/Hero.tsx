@@ -66,19 +66,21 @@ if (!movie) {
 
             
 
-            <a
-  href={movie.trailerUrl}
-  target="_blank"
-  rel="noopener noreferrer"
->
-  <Button
-    variant="secondary"
-    className="flex items-center gap-2"
+            {movie.trailerUrl && (
+  <a
+    href={movie.trailerUrl}
+    target="_blank"
+    rel="noopener noreferrer"
   >
-    <Play size={18} />
-    Watch Trailer
-  </Button>
-</a>
+    <Button
+      variant="secondary"
+      className="flex items-center gap-2"
+    >
+      <Play size={18} />
+      Watch Trailer
+    </Button>
+  </a>
+)}
 
           </div>
 
