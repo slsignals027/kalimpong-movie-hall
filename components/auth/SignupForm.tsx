@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { registerUser } from "@/actions/auth";
+import { useRouter } from "next/navigation";
 
 export default function SignupForm() {
   const [form, setForm] = useState({
@@ -15,6 +16,7 @@ export default function SignupForm() {
     password: "",
   });
   const [message, setMessage] = useState("");
+  const router = useRouter();
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setForm({
@@ -36,13 +38,15 @@ export default function SignupForm() {
   setMessage(result.message);
 
   if (result.success) {
-    setForm({
-      name: "",
-      email: "",
-      mobile: "",
-      password: "",
-    });
-  }
+  setForm({
+    name: "",
+    email: "",
+    mobile: "",
+    password: "",
+  });
+
+  router.push("/login?registered=true");
+}
 
 }
 
