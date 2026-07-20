@@ -16,7 +16,18 @@ export default function SeatLayout({
   toggleSeat,
 }: Props) {
   return (
-    <div className="rounded-2xl bg-white p-8 shadow-xl">
+    <div
+  className="
+    rounded-3xl
+    bg-gradient-to-b
+    from-[#232323]
+    via-[#1b1b1b]
+    to-[#111111]
+    p-6
+    shadow-2xl
+    sm:p-8
+  "
+>
       <div className="mb-8 flex items-center justify-between">
 
   <div>
@@ -45,8 +56,22 @@ export default function SeatLayout({
 
       <Screen />
 
-      <div className="mt-10 overflow-x-auto hide-scrollbar">
-  <div className="mx-auto min-w-[780px]">
+      <div
+  className="
+    mt-10
+    overflow-x-auto
+    overflow-y-hidden
+    hide-scrollbar
+    pb-2
+  "
+>
+  <div
+  className="
+    mx-auto
+    min-w-[820px]
+    px-4
+  "
+>
 
     <div className="flex flex-col items-center">
 

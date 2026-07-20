@@ -1,6 +1,5 @@
 "use client";
 
-
 type Props = {
   seat: string;
   premium: boolean;
@@ -16,109 +15,110 @@ export default function Seat({
   booked,
   onClick,
 }: Props) {
-  let color = premium
-  ? "fill-yellow-500"
-  : "fill-green-500";
 
-if (booked) {
-  color = "fill-red-500";
-} else if (selected) {
-  color = "fill-blue-500";
-}
+  let seatColor =
+    "bg-green-500 border-green-600";
+
+  if (premium)
+    seatColor =
+      "bg-gradient-to-b from-yellow-300 to-yellow-500 border-yellow-600";
+
+  if (selected)
+    seatColor =
+      "bg-blue-500 border-blue-700";
+
+  if (booked)
+    seatColor =
+      "bg-gradient-to-b from-red-400 to-red-700 border-red-800 opacity-80";
+
   return (
     <button
       disabled={booked}
       onClick={onClick}
-      className={`
-group
-flex flex-col items-center
-transition-all
-duration-300
-hover:-translate-y-1
-hover:scale-110
-active:scale-95
-disabled:cursor-not-allowed
-`}
+      className="
+      group
+      flex
+      flex-col
+      items-center
+      transition-all
+      duration-300
+      hover:-translate-y-1
+      hover:scale-110
+      active:scale-95
+      disabled:cursor-not-allowed
+      "
     >
-      <svg
-  viewBox="0 0 80 80"
-  className={`h-8 w-8 transition-all duration-300 ${
-  selected ? "scale-110" : ""
-} ${color} ${
-  premium && !booked && !selected
-    ? "drop-shadow-[0_0_8px_rgba(234,179,8,.8)]"
-    : ""
-}`}
->
-  {/* Back Cushion */}
-  <rect
-    x="22"
-    y="10"
-    width="36"
-    height="26"
-    rx="10"
-    opacity="0.95"
-  />
 
-  {/* Seat Cushion */}
-  <rect
-    x="16"
-    y="36"
-    width="48"
-    height="14"
-    rx="7"
-  />
+      {/* Seat */}
 
-  {/* Left Arm */}
-  <rect
-    x="10"
-    y="26"
-    width="8"
-    height="26"
-    rx="4"
-  />
+      <div className="relative">
 
-  {/* Right Arm */}
-  <rect
-    x="62"
-    y="26"
-    width="8"
-    height="26"
-    rx="4"
-  />
+        {/* Shadow */}
 
-  {/* Left Leg */}
-  <rect
-    x="24"
-    y="50"
-    width="5"
-    height="16"
-    rx="2"
-  />
+        <div className="absolute bottom-0 left-1/2 h-2 w-8 -translate-x-1/2 rounded-full bg-black/20 blur-sm" />
 
-  {/* Right Leg */}
-  <rect
-    x="51"
-    y="50"
-    width="5"
-    height="16"
-    rx="2"
-  />
+        {/* Seat */}
 
-  {/* Shadow */}
-  <ellipse
-    cx="40"
-    cy="71"
-    rx="18"
-    ry="3"
-    fill="black"
-    opacity="0.15"
-  />
-</svg>
+        <div
+          className={`
+          relative
+          h-9
+          w-9
+          ${seatColor}
+          rounded-t-xl
+          border-2
+          shadow-md
+          transition-all
+          duration-300
+          ${
+            premium && !selected && !booked
+              ? "shadow-yellow-300/60"
+              : ""
+          }
+          `}
+        >
+
+          {/* Back Cushion */}
+
+          <div
+            className="
+            absolute
+            left-1
+            right-1
+            top-1
+            h-3
+            rounded-lg
+            bg-white/25
+            "
+          />
+
+          {/* Seat Cushion */}
+
+          <div
+            className="
+            absolute
+            bottom-1
+            left-1
+            right-1
+            h-2
+            rounded-md
+            bg-black/10
+            "
+          />
+
+          {/* Arms */}
+
+          <div className="absolute -left-1 top-3 h-4 w-1 rounded bg-black/20" />
+          <div className="absolute -right-1 top-3 h-4 w-1 rounded bg-black/20" />
+
+        </div>
+
+      </div>
 
       <span className="mt-1 text-[9px] font-medium text-gray-700">
         {seat.replace(/[A-Z]/, "")}
       </span>
+
     </button>
   );
 }
