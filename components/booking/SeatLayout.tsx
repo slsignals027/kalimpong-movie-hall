@@ -16,106 +16,62 @@ export default function SeatLayout({
   toggleSeat,
 }: Props) {
   return (
-    <div
-  className="
-    rounded-3xl
-    bg-gradient-to-b
-    from-[#232323]
-    via-[#1b1b1b]
-    to-[#111111]
-    p-6
-    shadow-2xl
-    sm:p-8
-  "
->
-      <div className="mb-8 flex items-center justify-between">
+    <div className="rounded-3xl bg-gradient-to-b from-[#232323] via-[#1b1b1b] to-[#111111] p-6 shadow-2xl sm:p-8">
 
-  <div>
-    <h2 className="text-2xl font-bold text-[#1B4332]">
-      Select Your Seats
-    </h2>
+      {/* Scroll only the auditorium */}
+      <div className="overflow-x-auto overflow-y-hidden hide-scrollbar">
 
-    <p className="text-sm text-gray-500">
-      Tap a seat to select it.
-    </p>
-  </div>
+        {/* Width automatically becomes the width of the seat map */}
+        <div className="mx-auto w-max">
 
-  <div className="rounded-xl bg-[#1B4332] px-5 py-3 text-center text-white shadow">
+          {/* Screen */}
+          <Screen />
 
-    <p className="text-xs uppercase tracking-wider">
-      Selected
-    </p>
+          {/* Seat Rows */}
+          <div className="mt-8">
 
-    <p className="text-2xl font-bold">
-      {selectedSeats.length}
-    </p>
+            {AUDITORIUM.map((row) => (
+              <SeatRow
+                key={row.row}
+                row={row.row}
+                blocks={row.blocks}
+                selectedSeats={selectedSeats}
+                bookedSeats={bookedSeats}
+                toggleSeat={toggleSeat}
+              />
+            ))}
 
-  </div>
+          </div>
 
-</div>
+        </div>
 
-      <Screen />
+      </div>
 
-      <div
-  className="
-    mt-10
-    overflow-x-auto
-    overflow-y-hidden
-    hide-scrollbar
-    pb-2
-  "
->
-  <div
-  className="
-    mx-auto
-    min-w-[820px]
-    px-4
-  "
->
+      {/* Legend */}
 
-    <div className="flex flex-col items-center">
+      <div className="mt-10 flex flex-wrap justify-center gap-6 rounded-2xl bg-white/10 p-5 backdrop-blur">
 
-      {AUDITORIUM.map((row) => (
+        <div className="flex items-center gap-2">
+          <div className="h-4 w-4 rounded bg-green-500" />
+          <span className="text-white">Normal</span>
+        </div>
 
-        <SeatRow
-          key={row.row}
-          row={row.row}
-          blocks={row.blocks}
-          selectedSeats={selectedSeats}
-          bookedSeats={bookedSeats}
-          toggleSeat={toggleSeat}
-        />
+        <div className="flex items-center gap-2">
+          <div className="h-4 w-4 rounded bg-yellow-400" />
+          <span className="text-white">Premium</span>
+        </div>
 
-      ))}
+        <div className="flex items-center gap-2">
+          <div className="h-4 w-4 rounded bg-blue-500" />
+          <span className="text-white">Selected</span>
+        </div>
 
-    </div>
+        <div className="flex items-center gap-2">
+          <div className="h-4 w-4 rounded bg-red-500" />
+          <span className="text-white">Booked</span>
+        </div>
 
-  </div>
-</div>
-
-      <div className="mt-10 flex flex-wrap justify-center gap-6 rounded-xl bg-gray-50 p-5">
-
-  <div className="flex items-center gap-2">
-    <div className="h-5 w-5 rounded bg-green-500" />
-    <span>Available</span>
-  </div>
-
-  <div className="flex items-center gap-2">
-    <div className="h-5 w-5 rounded bg-blue-500" />
-    <span>Selected</span>
-  </div>
-
-  <div className="flex items-center gap-2">
-    <div className="h-5 w-5 rounded bg-red-500" />
-    <span>Booked</span>
-  </div>
-
-  <div className="flex items-center gap-2">
-    <div className="h-5 w-5 rounded border-2 border-yellow-500 bg-white" />
-    <span>Premium Seat</span>
-  </div>
-
-</div>
+      </div>
 
     </div>
   );
