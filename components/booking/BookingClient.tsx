@@ -49,9 +49,9 @@ export default function BookingClient({
 
   return (
     <main className="min-h-screen bg-[#F5F5F5] py-12">
-      <div className="mx-auto flex max-w-7xl gap-8 px-6">
+      <div className="mx-auto flex max-w-7xl flex-col gap-8 px-4 py-6 md:px-6 lg:flex-row">
 
-        <div className="w-[70%]">
+        <div className="w-full lg:w-[70%]">
           <SeatLayout
           selectedSeats={selectedSeats}
           bookedSeats={bookedSeats}
@@ -59,11 +59,18 @@ export default function BookingClient({
 />
         </div>
 
-        <div className="sticky top-8 h-fit w-[30%] rounded-3xl bg-white p-8 shadow-xl">
+<div className="h-fit w-full rounded-3xl bg-white p-6 shadow-xl lg:sticky lg:top-8 lg:w-[30%]">
+          <div className="mb-6 border-b pb-5">
 
-          <h2 className="mb-6 text-2xl font-bold">
-            Booking Summary
-          </h2>
+<h2 className="text-3xl font-bold text-[#1B4332]">
+Booking Summary
+</h2>
+
+<p className="mt-1 text-sm text-gray-500">
+Review your booking before confirming.
+</p>
+
+</div>
 
           <div className="space-y-5">
 
@@ -71,7 +78,7 @@ export default function BookingClient({
               <p className="text-sm text-gray-500">
                 Movie
               </p>
-              <p className="font-semibold">
+              <p className="text-lg font-semibold">
                 {movieTitle}
               </p>
             </div>
@@ -80,7 +87,7 @@ export default function BookingClient({
               <p className="text-sm text-gray-500">
                 Date
               </p>
-              <p className="font-semibold">
+              <p className="text-lg font-semibold">
                 {showDate}
               </p>
             </div>
@@ -89,7 +96,7 @@ export default function BookingClient({
               <p className="text-sm text-gray-500">
                 Time
               </p>
-              <p className="font-semibold">
+              <p className="text-lg font-semibold">
                 {showTime}
               </p>
             </div>
@@ -99,7 +106,7 @@ export default function BookingClient({
                 Selected Seats
               </p>
 
-              <p className="font-semibold">
+              <p className="text-lg font-semibold">
                 {selectedSeats.length === 0
                   ? "None"
                   : selectedSeats.join(", ")}
@@ -112,14 +119,14 @@ export default function BookingClient({
     Total Seats
   </p>
 
-  <p className="text-2xl font-bold">
+  <p className="text-4xl font-black text-[#1B4332]">
     {selectedSeats.length}
   </p>
 </div>
 
 <button
 onClick={handleBooking}
-  className={`mt-8 w-full rounded-xl py-4 text-lg font-semibold text-white transition ${
+  className={`mt-8 w-full rounded-2xl py-4 text-lg font-bold shadow-lg transition-all duration-300 ${
     selectedSeats.length === 0
       ? "cursor-not-allowed bg-gray-400"
       : "bg-[#1B4332] hover:bg-[#143526]"
