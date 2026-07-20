@@ -2,12 +2,13 @@ import Link from "next/link";
 import { Mountain } from "lucide-react";
 import { auth } from "@/auth";
 import LogoutButton from "@/components/auth/LogoutButton";
+import MobileMenu from "./MobileMenu";
 
 export default async function Navbar() {
   const session = await auth();
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-[#F8F5EF]/90 backdrop-blur-md">
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6 lg:px-10">
+      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-10">
 
         {/* Logo */}
 
@@ -20,11 +21,11 @@ export default async function Navbar() {
           </div>
 
           <div>
-            <h1 className="font-[var(--font-heading)] text-3xl font-bold tracking-wide text-[#1B4332]">
+            <h1 className="font-[var(--font-heading)] text-2xl sm:text-3xl font-bold tracking-wide text-[#1B4332]">
               KALIMPONG
             </h1>
 
-            <p className="-mt-1 text-sm uppercase tracking-[0.2em] text-gray-600">
+            <p className="-mt-1 text-xs sm:text-sm uppercase tracking-[0.2em] text-gray-600">
               Movie Hall
             </p>
           </div>
@@ -56,6 +57,7 @@ export default async function Navbar() {
         {/* Right Side */}
 
         <div className="flex items-center gap-3">
+          <div className="hidden md:flex items-center gap-3">
 
   {!session ? (
     <>
@@ -80,9 +82,9 @@ export default async function Navbar() {
     {session.user?.name?.charAt(0).toUpperCase()}
   </div>
 
-  <div className="flex flex-col">
+<div className="hidden lg:flex flex-col">
 
-    <span className="text-sm text-gray-500">
+    <span className="text-xs sm:text-sm text-gray-500">
       Welcome
     </span>
 
@@ -93,10 +95,22 @@ export default async function Navbar() {
   </div>
 
   <LogoutButton />
-
+  
 </div>
+
+
   )}
 
+</div>
+ <div className="md:hidden">
+  <div className="md:hidden">
+  <MobileMenu
+    loggedIn={!!session}
+    isAdmin={session?.user?.role === "ADMIN"}
+    userName={session?.user?.name ?? ""}
+  />
+</div>
+</div>
 </div>
 
       </div>
