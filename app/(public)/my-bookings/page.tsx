@@ -28,14 +28,14 @@ export default async function MyBookingsPage() {
   });
 
   return (
-    <main className="mx-auto max-w-6xl py-12 px-6">
+    <main className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
 
-      <h1 className="mb-8 text-4xl font-bold">
+     <h1 className="mb-8 text-3xl font-bold text-[#1B4332] sm:text-4xl">
         My Bookings
       </h1>
 
       {bookings.length === 0 ? (
-        <div className="rounded-xl border p-10 text-center">
+        <div className="rounded-3xl border bg-white p-8 text-center shadow-lg">
           <h2 className="text-2xl font-semibold">
             No bookings yet
           </h2>
@@ -58,14 +58,14 @@ export default async function MyBookingsPage() {
 
             <div
               key={booking.id}
-              className="rounded-2xl border bg-white p-6 shadow"
+              className="rounded-3xl border bg-white p-5 shadow-lg transition hover:shadow-xl sm:p-6"
             >
 
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 
                 <div>
 
-                  <h2 className="text-2xl font-bold">
+                  <h2 className="text-xl font-bold text-[#1B4332] sm:text-2xl">
                     {booking.show.movie.title}
                   </h2>
 
@@ -92,7 +92,7 @@ export default async function MyBookingsPage() {
 
               <hr className="my-5" />
 
-              <div className="grid grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
 
                 <div>
 
@@ -100,7 +100,7 @@ export default async function MyBookingsPage() {
                     Booking Number
                   </p>
 
-                  <p className="font-semibold">
+                  <p className="break-all font-semibold">
                     {booking.bookingNumber}
                   </p>
 
@@ -112,11 +112,20 @@ export default async function MyBookingsPage() {
                     Seats
                   </p>
 
-                  <p className="font-semibold">
-                    {booking.seats
-                      .map((seat) => seat.seatNumber)
-                      .join(", ")}
-                  </p>
+                  <div className="mt-2 flex flex-wrap gap-2">
+
+  {booking.seats.map((seat) => (
+
+    <span
+      key={seat.id}
+      className="rounded-lg bg-[#1B4332] px-3 py-1 text-sm font-medium text-white"
+    >
+      {seat.seatNumber}
+    </span>
+
+  ))}
+
+</div>
 
                 </div>
 
@@ -126,7 +135,7 @@ export default async function MyBookingsPage() {
                     Total Seats
                   </p>
 
-                  <p className="font-semibold">
+                  <p className="break-all font-semibold">
                     {booking.numberOfSeats}
                   </p>
 
@@ -138,7 +147,7 @@ export default async function MyBookingsPage() {
                     Booked On
                   </p>
 
-                  <p className="font-semibold">
+                  <p className="break-all font-semibold">
                     {booking.bookedAt.toLocaleString("en-IN")}
                   </p>
 

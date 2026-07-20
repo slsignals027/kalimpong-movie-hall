@@ -45,22 +45,28 @@ export default function SeatLayout({
 
       <Screen />
 
-      <div className="mt-10 flex flex-col items-center">
+      <div className="mt-10 overflow-x-auto hide-scrollbar">
+  <div className="mx-auto min-w-[780px]">
 
-        {AUDITORIUM.map((row) => (
+    <div className="flex flex-col items-center">
 
-          <SeatRow
-            key={row.row}
-            row={row.row}
-            blocks={row.blocks}
-            selectedSeats={selectedSeats}
-            bookedSeats={bookedSeats}
-            toggleSeat={toggleSeat}
-          />
+      {AUDITORIUM.map((row) => (
 
-        ))}
+        <SeatRow
+          key={row.row}
+          row={row.row}
+          blocks={row.blocks}
+          selectedSeats={selectedSeats}
+          bookedSeats={bookedSeats}
+          toggleSeat={toggleSeat}
+        />
 
-      </div>
+      ))}
+
+    </div>
+
+  </div>
+</div>
 
       <div className="mt-10 flex flex-wrap justify-center gap-6 rounded-xl bg-gray-50 p-5">
 

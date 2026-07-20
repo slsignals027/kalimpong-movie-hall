@@ -8,6 +8,7 @@ type Props = {
   toggleSeat: (seat: string) => void;
 };
 
+
 export default function SeatRow({
   row,
   blocks,
@@ -15,6 +16,8 @@ export default function SeatRow({
   bookedSeats,
   toggleSeat,
 }: Props) {
+  const premiumRows = ["K", "L", "M", "N", "O", "P", "Q"];
+const isPremium = premiumRows.includes(row);
   return (
     <div className="mb-3 flex items-center justify-center">
 
@@ -34,12 +37,13 @@ export default function SeatRow({
 
             return (
               <Seat
-                key={seatId}
-                seat={seatId}
-                selected={selectedSeats.includes(seatId)}
-                booked={bookedSeats.includes(seatId)}
-                onClick={() => toggleSeat(seatId)}
-              />
+  key={seatId}
+  seat={seatId}
+  premium={isPremium}
+  selected={selectedSeats.includes(seatId)}
+  booked={bookedSeats.includes(seatId)}
+  onClick={() => toggleSeat(seatId)}
+/>
             );
           })}
         </div>
