@@ -2,6 +2,8 @@ import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import HomeButton from "@/components/home/HomeButton";
+
 
 export default async function MyBookingsPage() {
   const session = await auth();
@@ -9,6 +11,9 @@ export default async function MyBookingsPage() {
   if (!session?.user?.id) {
     redirect("/login");
   }
+
+  
+  
 
   const bookings = await prisma.booking.findMany({
     where: {
@@ -28,7 +33,15 @@ export default async function MyBookingsPage() {
   });
 
   return (
-    <main className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
+    
+    
+    <main className="min-h-screen bg-[#F5F5F5] py-12">
+
+  <div className="mx-auto mb-6 max-w-7xl px-6">
+    <HomeButton />
+  </div>
+
+    
 
      <h1 className="mb-8 text-3xl font-bold text-[#1B4332] sm:text-4xl">
         My Bookings
@@ -51,8 +64,13 @@ export default async function MyBookingsPage() {
             Browse Shows
           </Link>
         </div>
-      ) : (
+        
+      ) :
+       (
+        
+        
         <div className="space-y-6">
+          
 
           {bookings.map((booking) => (
 
@@ -128,6 +146,7 @@ export default async function MyBookingsPage() {
 </div>
 
                 </div>
+                
 
                 <div>
 
