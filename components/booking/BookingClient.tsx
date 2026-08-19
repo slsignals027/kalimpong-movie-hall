@@ -22,23 +22,21 @@ export default function BookingClient({
 }: Props) {
   const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
   const router = useRouter();
-  async function handleBooking() {
+ async function handleBooking() {
   const result = await confirmBooking(
     showId,
     selectedSeats
   );
 
-  if (result.success) {
+  if (!result.success) {
     alert(result.message);
-
-    setSelectedSeats([]);
-
-    router.refresh();
-  } else {
-    alert(result.message);
+    return;
   }
-}
 
+  alert("Booking Confirmed!");
+
+  router.push("/my-bookings");
+}
   function toggleSeat(seat: string) {
     setSelectedSeats((prev) =>
       prev.includes(seat)

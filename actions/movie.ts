@@ -4,8 +4,6 @@ import { prisma } from "@/lib/prisma";
 import { saveImage } from "@/lib/uploads";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { unlink } from "fs/promises";
-import { join } from "path";
 
 
 

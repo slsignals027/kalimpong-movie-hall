@@ -3,6 +3,8 @@ import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import BookingClient from "@/components/booking/BookingClient";
 
+
+
 export default async function BookingPage({
   params,
 }: {
@@ -14,6 +16,7 @@ if (!session) {
   redirect("/login");
 }
   const { showId } = await params;
+  
 
   const show = await prisma.show.findUnique({
   where: {
