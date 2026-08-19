@@ -21,7 +21,10 @@ export const metadata: Metadata = {
 };
 
 const tourismImages = {
-  hero: "/tourism/north-sikkim-hero.png",
+  hero:
+    "https://res.cloudinary.com/bqt1b6pu/image/upload/v1787147821/ChatGPT_Image_Aug_19_2026_07_26_40_PM.png",
+  parchment:
+    "https://res.cloudinary.com/bqt1b6pu/image/upload/v1787147702/himalayan-parchment-background.png",
   gurudongmar:
     "https://res.cloudinary.com/bqt1b6pu/image/upload/v1787122569/gurudongmar-lake.jpg",
   yumthang:
@@ -39,6 +42,27 @@ const tourismImages = {
   sevenSisters:
     "https://res.cloudinary.com/bqt1b6pu/image/upload/v1787122569/seven-sisters.jpg",
 };
+
+const heritageCards = [
+  {
+    icon: TreePine,
+    title: "Lepcha Heritage",
+    image: tourismImages.dzongu,
+    text: "The original stewards of this land, the Lepchas have lived in harmony with these mountains for centuries.",
+  },
+  {
+    icon: Landmark,
+    title: "Living Buddhism",
+    image: tourismImages.lachung,
+    text: "From ancient monasteries to prayer flags that dance with the wind, Buddhist culture is woven into everyday life.",
+  },
+  {
+    icon: Leaf,
+    title: "Fragile Nature",
+    image: tourismImages.yumthang,
+    text: "Glaciers, high-altitude lakes and rare wildlife make North Sikkim's beauty delicate and deserving of respect.",
+  },
+];
 
 const destinations = [
   {
@@ -218,6 +242,40 @@ function BuddhistMandala({ className = "" }: { className?: string }) {
   );
 }
 
+function HeritageBackground() {
+  return (
+    <div
+      className="pointer-events-none absolute inset-0 z-0 overflow-hidden bg-[#f6eedc]"
+      aria-hidden="true"
+    >
+      <Image
+        src={tourismImages.parchment}
+        alt=""
+        fill
+        unoptimized
+        sizes="100vw"
+        className="object-cover object-center"
+      />
+      <div className="absolute inset-0 bg-[#f6eedc]/10" />
+    </div>
+  );
+}
+
+function OrnamentDivider() {
+  return (
+    <div
+      className="mx-auto mt-4 flex w-44 items-center justify-center gap-3 text-[#c99a3e]"
+      aria-hidden="true"
+    >
+      <span className="h-px flex-1 bg-current/70" />
+      <span className="h-3 w-3 rotate-45 border border-current">
+        <span className="block h-full w-full scale-50 bg-current" />
+      </span>
+      <span className="h-px flex-1 bg-current/70" />
+    </div>
+  );
+}
+
 function JourneyMap() {
   const places = [
     { name: "Siliguri", x: 95, y: 270, kind: "start" },
@@ -308,6 +366,7 @@ export default function TourismPage() {
           alt="North Sikkim mountains, lake and prayer flags"
           fill
           preload
+          unoptimized
           sizes="100vw"
           className="object-cover object-center"
         />
@@ -337,35 +396,45 @@ export default function TourismPage() {
         <MountainDivider />
       </section>
 
-      <section className="relative isolate overflow-hidden px-5 py-24 sm:px-8 lg:px-10 lg:py-32">
-        <TopographicBackground className="-z-10 text-[#17332c]/10" />
-        <BuddhistMandala className="-right-24 -top-20 -z-10 text-[#7a263a]/10" />
-        <BuddhistMandala className="-bottom-28 -left-28 -z-10 rotate-45 text-[#d6a54a]/15" />
+      <section className="relative isolate overflow-hidden px-5 py-20 sm:px-8 lg:px-10 lg:py-28">
+        <HeritageBackground />
 
-        <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.8fr_1.2fr] lg:items-start">
-          <div>
-            <p className="mb-4 text-xs font-bold uppercase tracking-[.25em] text-[#a06c2f]">A living Himalayan story</p>
-            <h2 className="text-4xl font-semibold leading-tight tracking-[-.035em] sm:text-6xl">More than a beautiful landscape.</h2>
+        <div className="relative z-10 mx-auto max-w-7xl">
+          <div className="mx-auto max-w-3xl text-center">
+            <h2 className="text-4xl font-semibold leading-tight tracking-[-.035em] text-[#173d34] sm:text-6xl">
+              A living Himalayan story
+            </h2>
+            <OrnamentDivider />
+            <p className="mx-auto mt-5 max-w-2xl text-sm leading-6 text-[#17332c]/75 sm:text-base sm:leading-7">
+              North Sikkim is where nature, culture and spirituality exist in harmony. It is home to ancient Lepcha traditions, vibrant Buddhist heritage and some of the most fragile landscapes on Earth.
+            </p>
           </div>
-          <div className="space-y-6 text-base leading-8 text-[#17332c]/70 sm:text-lg">
-            <p>North Sikkim is a meeting place of sacred mountains, ancient routes and living communities. The Lepchas are regarded as Sikkim&apos;s original inhabitants, with traditions closely tied to its forests, rivers and mountains.</p>
-            <p>Bhutia communities arriving from Tibet brought strong Buddhist influences. Monasteries, prayer flags and sacred landscapes became inseparable from the region&apos;s identity.</p>
-            <p>Lachen and Lachung continue to preserve the traditional Dzumsa system of local governance, while Dzongu remains an important centre of Lepcha culture and ecological knowledge.</p>
-          </div>
-        </div>
 
-        <div className="mx-auto mt-16 grid max-w-7xl gap-5 md:grid-cols-3">
-          {[
-            { icon: TreePine, title: "Lepcha homeland", text: "A culture shaped by forests, rivers, mountains and generations of environmental knowledge." },
-            { icon: Landmark, title: "Living Buddhism", text: "Monasteries, prayer flags and sacred landscapes remain part of everyday mountain life." },
-            { icon: Leaf, title: "Fragile nature", text: "Alpine meadows, rhododendrons and high-altitude ecosystems deserve careful protection." },
-          ].map(({ icon: Icon, title, text }) => (
-            <article key={title} className="rounded-[1.75rem] border border-[#17332c]/10 bg-white/50 p-7 shadow-[0_18px_60px_rgba(23,51,44,.07)] backdrop-blur-sm">
-              <span className="grid h-12 w-12 place-items-center rounded-full bg-[#17332c] text-[#d6a54a]"><Icon size={22} /></span>
-              <h3 className="mt-7 text-2xl font-bold">{title}</h3>
-              <p className="mt-3 leading-7 text-[#17332c]/65">{text}</p>
-            </article>
-          ))}
+          <div className="mx-auto mt-10 grid max-w-5xl gap-6 md:grid-cols-3">
+            {heritageCards.map(({ icon: Icon, title, image, text }) => (
+              <article
+                key={title}
+                className="overflow-hidden rounded-xl border border-[#9e8764]/30 bg-[#fffdf7]/90 shadow-[0_12px_35px_rgba(75,54,29,.10)] backdrop-blur-sm"
+              >
+                <div className="relative h-44 overflow-hidden">
+                  <Image
+                    src={image}
+                    alt=""
+                    fill
+                    sizes="(max-width:768px) 100vw,33vw"
+                    className="object-cover transition duration-700 hover:scale-105"
+                  />
+                </div>
+                <div className="p-5">
+                  <div className="flex items-center gap-3">
+                    <Icon size={21} className="shrink-0 text-[#b58531]" />
+                    <h3 className="text-xl font-semibold text-[#17332c]">{title}</h3>
+                  </div>
+                  <p className="mt-3 text-sm leading-6 text-[#17332c]/68">{text}</p>
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 
