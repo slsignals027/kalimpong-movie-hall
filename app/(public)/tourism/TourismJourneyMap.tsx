@@ -433,14 +433,14 @@ export default function TourismJourneyMap() {
               <desc id="interactive-map-description">Select any named place to read its history, geography, altitude and travel information.</desc>
 
               <g fill="none" stroke="#d6a54a" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round">
-                {routes.map((route) => (
+                {routes.map((route, index) => (
                   <path
                     key={route.d}
                     className="route-draw route-segment"
                     pathLength="1"
                     d={route.d}
                     opacity={routeOpacity(route.circuit)}
-                    style={{ transition: "opacity 350ms ease" }}
+                    style={{ transition: "opacity 350ms ease", animationDelay: `${index * 70}ms` }}
                   />
                 ))}
               </g>
@@ -458,6 +458,7 @@ export default function TourismJourneyMap() {
                 strokeDasharray="14 10"
                 strokeLinecap="round"
                 opacity={routeOpacity(highAltitudeLink.circuit) * 0.9}
+                style={{ animationDelay: `${routes.length * 70}ms` }}
               />
 
               {[...routes, highAltitudeLink].map((route) => {
@@ -471,7 +472,7 @@ export default function TourismJourneyMap() {
                 );
               })}
 
-              {places.map((place) => {
+              {places.map((place, index) => {
                 const selected = selectedId === place.id;
                 const dimmed = Boolean(activeCircuit && place.circuit !== activeCircuit && place.circuit !== "trunk");
                 return (
@@ -487,9 +488,9 @@ export default function TourismJourneyMap() {
                         setSelectedId(place.id);
                       }
                     }}
-                    className="map-place cursor-pointer outline-none"
+                    className="map-place map-place-reveal cursor-pointer outline-none"
                     opacity={dimmed ? 0.28 : 1}
-                    style={{ transition: "opacity 350ms ease" }}
+                    style={{ transition: "opacity 350ms ease", animationDelay: `${450 + index * 55}ms` }}
                   >
                     {selected && <circle cx={place.x} cy={place.y} r="31" fill="none" stroke="#efc877" strokeWidth="2" className="map-node-halo" />}
                     <circle cx={place.x} cy={place.y} r={selected ? 23 : 18} fill={nodeColour(place.kind)} stroke="rgba(255,255,255,.6)" strokeWidth="4" />

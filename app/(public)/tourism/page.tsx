@@ -29,8 +29,7 @@ const tourismImages = {
   gurudongmar:
     "https://res.cloudinary.com/bqt1b6pu/image/upload/f_auto,q_auto,w_1400/v1787122569/gurudongmar-lake.jpg",
   yumthang:
-    "https://res.cloudinary.com/bqt1b6pu/image/upload/v1787213698/yumthang-valley.webp",
-    
+    "https://res.cloudinary.com/bqt1b6pu/image/upload/f_auto,q_auto,w_1400/v1787122570/yumthang-valley.jpg",
   lachung:
     "https://res.cloudinary.com/bqt1b6pu/image/upload/v1787122570/lachung.jpg",
   lachen:
@@ -248,11 +247,12 @@ function SikkimJourneyBackground() {
   return (
     <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
       <Image
-        src="/tourism/sikkim-journey-background-draft.webp"
+        src="https://res.cloudinary.com/bqt1b6pu/image/upload/f_auto,q_auto,w_2000/v1787210807/sikkim-journey-background-draft.png"
         alt=""
         fill
+        unoptimized
         sizes="100vw"
-        className="object-cover object-center opacity-75"
+        className="journey-background-image object-cover object-center opacity-75"
       />
       <div className="absolute inset-0 bg-[#17332c]/38" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_20%,rgba(12,38,32,.32)_76%,rgba(12,38,32,.62)_100%)]" />
@@ -462,7 +462,7 @@ export function JourneyMapStaticReference() {
 export default function TourismPage() {
   return (
     <main className="tourism-page overflow-hidden bg-[#f4ebdd] text-[#17332c]">
-      <section className="relative min-h-[72svh] overflow-hidden bg-[#092a36] text-white sm:min-h-[94svh]">
+      <section className="tourism-hero relative min-h-[72svh] overflow-hidden bg-[#092a36] text-white sm:min-h-[94svh]">
         <Image
           src={tourismImages.hero}
           alt="North Sikkim mountains, lake and prayer flags"
@@ -470,9 +470,10 @@ export default function TourismPage() {
           preload
           unoptimized
           sizes="100vw"
-          className="object-cover object-center"
+          className="tourism-hero-image object-cover object-center"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#092a36]/85 via-transparent to-[#092a36]/15 sm:from-[#092a36]/25" />
+        <div className="tourism-hero-aurora absolute inset-0 bg-gradient-to-t from-[#092a36]/85 via-transparent to-[#092a36]/15 sm:from-[#092a36]/25" />
+        <div className="tourism-hero-glint pointer-events-none absolute -left-1/3 top-0 h-full w-1/2 rotate-12 bg-gradient-to-r from-transparent via-[#efc877]/10 to-transparent" aria-hidden="true" />
 
         <Link
           href="/"
@@ -483,7 +484,7 @@ export default function TourismPage() {
           <span className="sm:hidden">Movies</span>
         </Link>
 
-        <div className="absolute inset-x-0 bottom-24 z-10 px-5 sm:hidden">
+        <div className="tourism-hero-copy absolute inset-x-0 bottom-24 z-10 px-5 sm:hidden">
           <p className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/25 bg-[#092a36]/55 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.18em] backdrop-blur-md">
             <Compass size={13} className="text-[#d6a54a]" /> Mangan District
           </p>
@@ -513,10 +514,11 @@ export default function TourismPage() {
           </div>
 
           <div className="mx-auto mt-10 grid max-w-5xl gap-6 md:grid-cols-3">
-            {heritageCards.map(({ icon: Icon, title, image, text }) => (
+            {heritageCards.map(({ icon: Icon, title, image, text }, index) => (
               <article
                 key={title}
-                className="overflow-hidden rounded-xl border border-[#9e8764]/30 bg-[#fffdf7]/90 shadow-[0_12px_35px_rgba(75,54,29,.10)] backdrop-blur-sm"
+                className="heritage-card reveal-on-scroll overflow-hidden rounded-xl border border-[#9e8764]/30 bg-[#fffdf7]/90 shadow-[0_12px_35px_rgba(75,54,29,.10)] backdrop-blur-sm"
+                style={{ animationDelay: `${index * 110}ms` }}
               >
                 <div className="relative h-44 overflow-hidden">
                   <Image
@@ -546,7 +548,7 @@ export default function TourismPage() {
         <PrayerFlags />
 
         <div className="relative z-10 mx-auto max-w-7xl pt-10">
-          <div className="mb-10">
+          <div className="reveal-on-scroll mb-10">
             <div className="flex items-center gap-3">
               <Route className="text-[#d6a54a]" />
               <p className="text-xs font-bold uppercase tracking-[.24em] text-white/65">Journey into North Sikkim</p>
@@ -565,15 +567,19 @@ export default function TourismPage() {
         <BuddhistMandala className="-right-28 top-40 -z-10 text-[#7a263a]/10" />
 
         <div className="mx-auto max-w-7xl">
-          <div className="mb-14 max-w-3xl">
+          <div className="reveal-on-scroll mb-14 max-w-3xl">
             <p className="mb-4 text-xs font-bold uppercase tracking-[.24em] text-[#a06c2f]">Places worth the climb</p>
             <h2 className="text-4xl font-semibold leading-tight tracking-[-.035em] sm:text-6xl">Eight journeys into North Sikkim.</h2>
             <p className="mt-5 max-w-2xl text-base leading-7 text-[#17332c]/65">Explore sacred water, alpine valleys, mountain villages, waterfalls and the cultural landscapes of Mangan District.</p>
           </div>
 
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {destinations.map((destination) => (
-              <article key={destination.name} className={`group overflow-hidden rounded-[2rem] border border-[#17332c]/10 bg-[#fffaf0] shadow-[0_18px_60px_rgba(23,51,44,.09)] ${destination.large ? "xl:col-span-2" : ""}`}>
+            {destinations.map((destination, index) => (
+              <article
+                key={destination.name}
+                className={`destination-card reveal-on-scroll group overflow-hidden rounded-[2rem] border border-[#17332c]/10 bg-[#fffaf0] shadow-[0_18px_60px_rgba(23,51,44,.09)] ${destination.large ? "xl:col-span-2" : ""}`}
+                style={{ animationDelay: `${index * 85}ms` }}
+              >
                 <div className="relative h-72 overflow-hidden sm:h-80">
                   <Image
                     src={destination.image}
@@ -584,6 +590,7 @@ export default function TourismPage() {
                     className="object-cover transition duration-700 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" />
+                  <div className="destination-gold-overlay pointer-events-none absolute inset-0 bg-gradient-to-br from-[#efc877]/30 via-transparent to-[#d6a54a]/20 opacity-0" aria-hidden="true" />
                   <span className={`absolute left-5 top-5 rounded-full px-3 py-1.5 text-[10px] font-bold uppercase tracking-[.16em] text-[#17332c] ${destination.accent}`}>{destination.category}</span>
                   <h3 className="absolute bottom-5 left-5 right-5 text-3xl font-bold text-white sm:text-4xl">{destination.name}</h3>
                 </div>
@@ -606,7 +613,7 @@ export default function TourismPage() {
       </section>
 
       <section className="px-5 pb-24 sm:px-8 lg:px-10 lg:pb-32">
-        <div className="relative mx-auto max-w-7xl overflow-hidden rounded-[2rem] bg-[#7a263a] px-6 py-12 text-white sm:px-10 lg:px-14">
+        <div className="travel-card reveal-on-scroll relative mx-auto max-w-7xl overflow-hidden rounded-[2rem] bg-[#7a263a] px-6 py-12 text-white sm:px-10 lg:px-14">
           <BuddhistMandala className="-right-20 -top-24 text-white/10" />
           <div className="relative grid gap-10 lg:grid-cols-[.7fr_1.3fr] lg:items-center">
             <div>
@@ -632,11 +639,11 @@ export default function TourismPage() {
 
       <section className="relative isolate overflow-hidden bg-[#e2dfd0] px-5 py-24 sm:px-8 lg:px-10">
         <TopographicBackground className="-z-10 text-[#17332c]/10" />
-        <div className="mx-auto max-w-4xl text-center">
+        <div className="reveal-on-scroll mx-auto max-w-4xl text-center">
           <History className="mx-auto text-[#a06c2f]" size={34} />
           <p className="mt-5 text-xs font-bold uppercase tracking-[.24em] text-[#a06c2f]">Back in Kalimpong</p>
           <h2 className="mt-5 text-4xl font-semibold tracking-[-.035em] sm:text-6xl">After the mountains, enjoy a movie together.</h2>
-          <Link href="/" className="mt-9 inline-flex items-center gap-2 rounded-full bg-[#17332c] px-7 py-4 font-bold text-white transition hover:-translate-y-0.5 hover:bg-[#23483e]">
+          <Link href="/" className="tourism-cta mt-9 inline-flex items-center gap-2 rounded-full bg-[#17332c] px-7 py-4 font-bold text-white transition hover:-translate-y-0.5 hover:bg-[#23483e]">
             <Ticket size={19} /> Return to Movie Booking
           </Link>
         </div>

@@ -149,14 +149,12 @@ h3 {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
-/* North Sikkim tourism animations */
 
 @keyframes tourism-reveal {
   from {
     opacity: 0;
     transform: translateY(24px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
@@ -168,7 +166,6 @@ h3 {
   100% {
     transform: rotate(-1.5deg) skewX(0deg);
   }
-
   50% {
     transform: rotate(1.5deg) skewX(-1deg);
   }
@@ -178,9 +175,30 @@ h3 {
   from {
     stroke-dashoffset: 1;
   }
-
   to {
     stroke-dashoffset: 0;
+  }
+}
+
+@keyframes map-node-halo {
+  0%, 100% {
+    opacity: 0.35;
+    transform: scale(0.9);
+  }
+  50% {
+    opacity: 0.95;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes place-panel-enter {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -195,10 +213,7 @@ h3 {
 }
 
 .route-segment {
-  transition:
-    filter 300ms ease,
-    opacity 300ms ease,
-    stroke-width 300ms ease;
+  transition: filter 300ms ease, opacity 300ms ease, stroke-width 300ms ease;
 }
 
 .route-segment:hover {
@@ -206,7 +221,211 @@ h3 {
   stroke-width: 8;
 }
 
-/* Start animations when elements enter the viewport */
+.map-place circle,
+.map-place rect {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 250ms ease, fill 250ms ease, stroke 250ms ease;
+}
+
+.map-place:hover circle:first-of-type,
+.map-place:focus-visible circle:first-of-type {
+  transform: scale(1.12);
+}
+
+.map-place:focus-visible rect {
+  stroke: #efc877;
+  stroke-width: 2;
+}
+
+.map-node-halo {
+  animation: map-node-halo 2.4s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.place-detail-panel {
+  animation: place-panel-enter 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (min-width: 1024px) {
+  @keyframes place-panel-enter {
+    from {
+      opacity: 0;
+      transform: translateX(42px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+}
+
+@keyframes hero-drift {
+  0% {
+    transform: scale(1.02) translate3d(0, 0, 0);
+  }
+  100% {
+    transform: scale(1.09) translate3d(-0.8%, -0.6%, 0);
+  }
+}
+
+@keyframes hero-aurora {
+  0%, 100% {
+    opacity: 0.82;
+    filter: saturate(1);
+  }
+  50% {
+    opacity: 1;
+    filter: saturate(1.12);
+  }
+}
+
+@keyframes hero-glint {
+  0%, 25% {
+    opacity: 0;
+    transform: translate3d(-75%, 0, 0) rotate(12deg);
+  }
+  45% {
+    opacity: 0.8;
+  }
+  70%, 100% {
+    opacity: 0;
+    transform: translate3d(280%, 0, 0) rotate(12deg);
+  }
+}
+
+@keyframes hero-copy-enter {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes journey-breathe {
+  0%, 100% {
+    transform: scale(1.01);
+    filter: saturate(0.92) brightness(0.92);
+  }
+  50% {
+    transform: scale(1.045);
+    filter: saturate(1.08) brightness(1.02);
+  }
+}
+
+@keyframes map-node-appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes cta-glow {
+  0%, 100% {
+    box-shadow: 0 10px 28px rgba(23, 51, 44, 0.2);
+  }
+  50% {
+    box-shadow: 0 14px 38px rgba(214, 165, 74, 0.34);
+  }
+}
+
+.tourism-hero-image {
+  animation: hero-drift 18s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.tourism-hero-aurora {
+  animation: hero-aurora 7s ease-in-out infinite;
+}
+
+.tourism-hero-glint {
+  animation: hero-glint 10s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.tourism-hero-copy {
+  animation: hero-copy-enter 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
+}
+
+.journey-background-image {
+  animation: journey-breathe 20s ease-in-out infinite;
+  will-change: transform, filter;
+}
+
+.heritage-card,
+.destination-card,
+.travel-card {
+  position: relative;
+  transition:
+    transform 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 320ms ease,
+    box-shadow 420ms ease;
+}
+
+.heritage-card::after,
+.destination-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+  background: linear-gradient(115deg, transparent 22%, rgba(255, 238, 184, 0.2) 44%, transparent 64%);
+  transform: translateX(-145%);
+  transition: transform 850ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.heritage-card:hover,
+.destination-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(214, 165, 74, 0.72);
+  box-shadow: 0 26px 70px rgba(73, 52, 23, 0.18);
+}
+
+.heritage-card:hover::after,
+.destination-card:hover::after {
+  transform: translateX(145%);
+}
+
+.destination-gold-overlay {
+  transition: opacity 500ms ease;
+  mix-blend-mode: soft-light;
+}
+
+.destination-card:hover .destination-gold-overlay {
+  opacity: 1;
+}
+
+.travel-card::after {
+  content: "";
+  position: absolute;
+  width: 22rem;
+  height: 22rem;
+  right: -8rem;
+  bottom: -12rem;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(239, 200, 119, 0.2), transparent 67%);
+  pointer-events: none;
+  transition: transform 700ms ease;
+}
+
+.travel-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 30px 80px rgba(94, 30, 48, 0.3);
+}
+
+.travel-card:hover::after {
+  transform: scale(1.22);
+}
+
+.tourism-cta {
+  animation: cta-glow 3.8s ease-in-out infinite;
+}
 
 @supports (animation-timeline: view()) {
   .reveal-on-scroll {
@@ -232,9 +451,16 @@ h3 {
     animation-timeline: view();
     animation-range: entry 25% cover 42%;
   }
-}
 
-/* Accessibility: disable effects when reduced motion is enabled */
+  .map-place-reveal {
+    animation-name: map-node-appear;
+    animation-duration: 0.7s;
+    animation-fill-mode: both;
+    animation-timing-function: ease-out;
+    animation-timeline: view();
+    animation-range: entry 15% cover 32%;
+  }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .tourism-page *,
@@ -255,98 +481,6 @@ h3 {
   }
 
   .tourism-page .group:hover img {
-    transform: none !important;
-  }
-}
-/* Interactive tourism map */
-
-@keyframes map-node-halo {
-  0%,
-  100% {
-    opacity: 0.35;
-    transform: scale(0.9);
-  }
-
-  50% {
-    opacity: 0.95;
-    transform: scale(1.08);
-  }
-}
-
-@keyframes place-panel-enter {
-  from {
-    opacity: 0;
-    transform: translateY(28px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.map-place circle,
-.map-place rect {
-  transform-box: fill-box;
-  transform-origin: center;
-  transition:
-    transform 250ms ease,
-    fill 250ms ease,
-    stroke 250ms ease;
-}
-
-.map-place:hover circle:first-of-type,
-.map-place:focus-visible circle:first-of-type {
-  transform: scale(1.12);
-}
-
-.map-place:focus-visible rect {
-  stroke: #efc877;
-  stroke-width: 2;
-}
-
-.map-node-halo {
-  animation: map-node-halo 2.4s ease-in-out infinite;
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-.place-detail-panel {
-  animation: place-panel-enter 420ms
-    cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-/* Desktop panel enters from the right */
-
-@media (min-width: 1024px) {
-  @keyframes place-panel-enter {
-    from {
-      opacity: 0;
-      transform: translateX(42px);
-    }
-
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-}
-
-/* Disable new effects for reduced-motion users */
-
-@media (prefers-reduced-motion: reduce) {
-  .map-node-halo,
-  .place-detail-panel {
-    animation: none !important;
-  }
-
-  .map-place circle,
-  .map-place rect {
-    transition: none !important;
-  }
-
-  .map-place:hover circle:first-of-type,
-  .map-place:focus-visible circle:first-of-type {
     transform: none !important;
   }
 }
