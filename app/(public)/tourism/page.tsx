@@ -304,15 +304,21 @@ function JourneyMap() {
     { d: "M685 270H745", label: "28 km · 1h 30m", x: 715, y: 232 },
     { d: "M865 250C900 205 925 155 970 138", label: "27 km · 1h 30m", x: 905, y: 193 },
     { d: "M1025 125C1060 105 1080 95 1125 92", label: "30 km · 1h 30m", x: 1065, y: 48 },
-    { d: "M1180 92H1250", label: "10 km · 30m", x: 1215, y: 136 },
+    { d: "M1180 92H1250", label: "10 km · 30m", x: 1215, y: 54 },
     { d: "M1325 108C1380 165 1415 300 1430 432", label: "35 km · 1h 45m", x: 1412, y: 245 },
     { d: "M865 290C900 335 925 388 970 402", label: "22 km · 1h 15m", x: 905, y: 347 },
     { d: "M1025 418C1060 440 1080 447 1115 450", label: "25 km · 1h 15m", x: 1063, y: 394 },
     { d: "M1170 450H1205", label: "23 km · 1h", x: 1188, y: 410 },
-    { d: "M1315 450H1370", label: "Restricted link", x: 1343, y: 410 },
     { d: "M480 288C505 380 550 485 620 527", label: "38 km · 1h 30m", x: 536, y: 430 },
     { d: "M675 560C710 580 755 600 775 607", label: "18 km · 45m", x: 724, y: 570 },
   ];
+
+  const highAltitudeLink = {
+    d: "M1278 442C1320 382 1375 382 1412 442",
+    label: "Restricted link",
+    x: 1347,
+    y: 372,
+  };
 
   const nodeColour = (kind: string) => {
     if (kind === "start") return "#d6a54a";
@@ -324,7 +330,7 @@ function JourneyMap() {
   return (
     <div className="hide-scrollbar overflow-x-auto pb-3" tabIndex={0} aria-label="Scrollable North Sikkim route map">
       <div className="min-w-[1050px]">
-        <svg viewBox="0 0 1530 710" className="h-auto w-full" role="img" aria-labelledby="route-map-title route-map-description">
+        <svg viewBox="0 0 1530 760" className="h-auto w-full" role="img" aria-labelledby="route-map-title route-map-description">
           <title id="route-map-title">Journey map from Siliguri across North and East Sikkim</title>
           <desc id="route-map-description">
             Routes from Siliguri through Darjeeling or Kalimpong join at Gangtok. The northern route continues through Mangan and Chungthang before dividing towards Lachung and Zero Point or Lachen and Gurudongmar Lake. An East Sikkim branch runs from Gangtok through Tsomgo Lake to Nathu La, and a high-altitude road links Gurudongmar with Zero Point.
@@ -337,27 +343,53 @@ function JourneyMap() {
             {routes.map((route) => <path key={route.d} d={route.d} />)}
           </g>
 
-          {routes.map((route) => (
+          <g
+            fill="none"
+            stroke="#9ccbd4"
+            strokeWidth="5"
+            strokeDasharray="14 10"
+            strokeLinecap="round"
+            opacity=".9"
+          >
+            <path d={highAltitudeLink.d} />
+          </g>
+
+          {[...routes, highAltitudeLink].map((route) => (
             <g key={`${route.label}-${route.x}-${route.y}`}>
-              <rect
-                x={route.x - 59}
-                y={route.y - 13}
-                width="118"
-                height="26"
-                rx="9"
-                fill="rgba(9,35,30,.92)"
-                stroke="rgba(214,165,74,.45)"
+              <line
+                x1={route.x - 61}
+                y1={route.y}
+                x2={route.x - 48}
+                y2={route.y}
+                stroke="#d6a54a"
+                strokeWidth="1.5"
+                opacity=".75"
               />
+              <circle cx={route.x - 43} cy={route.y} r="2" fill="#d6a54a" opacity=".9" />
               <text
                 x={route.x}
-                y={route.y + 4}
+                y={route.y + 3.5}
                 textAnchor="middle"
                 fill="#efc877"
-                fontSize="10"
+                stroke="#17332c"
+                strokeWidth="3"
+                paintOrder="stroke"
+                fontSize="9.5"
                 fontWeight="700"
+                letterSpacing=".25"
               >
                 {route.label}
               </text>
+              <circle cx={route.x + 43} cy={route.y} r="2" fill="#d6a54a" opacity=".9" />
+              <line
+                x1={route.x + 48}
+                y1={route.y}
+                x2={route.x + 61}
+                y2={route.y}
+                stroke="#d6a54a"
+                strokeWidth="1.5"
+                opacity=".75"
+              />
             </g>
           ))}
 
@@ -375,7 +407,7 @@ function JourneyMap() {
           <g fill="#d6a54a" fontSize="13" fontWeight="700" letterSpacing="2">
             <text x="270" y="43" textAnchor="middle">DARJEELING ROUTE</text>
             <text x="270" y="525" textAnchor="middle">KALIMPONG ROUTE</text>
-            <text x="720" y="690" textAnchor="middle">EAST SIKKIM · CHANGU–NATHU LA ROUTE</text>
+            <text x="720" y="735" textAnchor="middle">EAST SIKKIM · CHANGU–NATHU LA ROUTE</text>
           </g>
           <g fill="#9ccbd4" fontSize="13" fontWeight="700" letterSpacing="2">
             <text x="1180" y="22" textAnchor="middle">LACHEN–GURUDONGMAR CIRCUIT</text>
