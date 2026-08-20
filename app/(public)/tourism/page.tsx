@@ -296,28 +296,28 @@ function JourneyMap() {
   ];
 
   const routes = [
-    { d: "M150 250C185 190 215 130 270 120", label: "63 km · 2h 30m", x: 178, y: 176 },
-    { d: "M330 120C390 145 415 225 465 252", label: "98 km · 4h", x: 394, y: 174 },
-    { d: "M150 290C190 350 215 410 270 420", label: "67 km · 2h 30m", x: 178, y: 354 },
-    { d: "M330 420C390 390 420 310 465 288", label: "75 km · 3h", x: 394, y: 367 },
-    { d: "M520 270H575", label: "65 km · 2h 30m", x: 548, y: 232 },
-    { d: "M685 270H745", label: "28 km · 1h 30m", x: 715, y: 232 },
-    { d: "M865 250C900 205 925 155 970 138", label: "27 km · 1h 30m", x: 905, y: 193 },
-    { d: "M1025 125C1060 105 1080 95 1125 92", label: "30 km · 1h 30m", x: 1065, y: 48 },
-    { d: "M1180 92H1250", label: "10 km · 30m", x: 1215, y: 54 },
-    { d: "M865 290C900 335 925 388 970 402", label: "22 km · 1h 15m", x: 905, y: 347 },
-    { d: "M1025 418C1060 440 1080 447 1115 450", label: "25 km · 1h 15m", x: 1063, y: 394 },
-    { d: "M1170 450H1205", label: "23 km · 1h", x: 1188, y: 410 },
-    { d: "M1315 450H1370", label: "Road link", x: 1343, y: 410 },
-    { d: "M480 288C505 380 550 485 620 527", label: "38 km · 1h 30m", x: 536, y: 430 },
-    { d: "M675 560C710 580 755 600 775 607", label: "18 km · 45m", x: 724, y: 570 },
+    { d: "M150 250C185 190 215 130 270 120", label: "63 km · 2h 30m", x: 178, y: 215 },
+    { d: "M330 120C390 145 415 225 465 252", label: "98 km · 4h", x: 394, y: 220 },
+    { d: "M150 290C190 350 215 410 270 420", label: "67 km · 2h 30m", x: 178, y: 390 },
+    { d: "M330 420C390 390 420 310 465 288", label: "75 km · 3h", x: 390, y: 465 },
+    { d: "M520 270H575", label: "65 km · 2h 30m", x: 548, y: 360 },
+    { d: "M685 270H745", label: "28 km · 1h 30m", x: 715, y: 360 },
+    { d: "M865 250C900 205 925 155 970 138", label: "27 km · 1h 30m", x: 905, y: 235 },
+    { d: "M1025 125C1060 105 1080 95 1125 92", label: "30 km · 1h 30m", x: 1065, y: 215 },
+    { d: "M1180 92H1250", label: "10 km · 30m", x: 1215, y: 178 },
+    { d: "M865 290C900 335 925 388 970 402", label: "22 km · 1h 15m", x: 880, y: 390 },
+    { d: "M1025 418C1060 440 1080 447 1115 450", label: "25 km · 1h 15m", x: 1045, y: 545 },
+    { d: "M1170 450H1205", label: "23 km · 1h", x: 1188, y: 545 },
+    { d: "M1278 442C1320 405 1375 405 1412 442", label: "Road link", x: 1345, y: 468 },
+    { d: "M480 288C505 380 550 485 620 527", label: "38 km · 1h 30m", x: 536, y: 470 },
+    { d: "M675 560C710 580 755 600 775 607", label: "18 km · 45m", x: 705, y: 625 },
   ];
 
   const highAltitudeLink = {
     d: "M1325 108C1380 165 1415 300 1430 432",
     label: "High-altitude road",
-    x: 1412,
-    y: 245,
+    x: 1375,
+    y: 325,
   };
 
   const nodeColour = (kind: string) => {
@@ -328,8 +328,34 @@ function JourneyMap() {
   };
 
   return (
-    <div className="hide-scrollbar overflow-x-auto pb-3" tabIndex={0} aria-label="Scrollable North Sikkim route map">
-      <div className="min-w-[1050px]">
+    <div className="relative">
+      <div
+        className="pointer-events-none absolute inset-y-0 left-0 z-20 w-12 bg-gradient-to-r from-[#17332c] via-[#17332c]/70 to-transparent md:hidden"
+        aria-hidden="true"
+      />
+      <div
+        className="pointer-events-none absolute inset-y-0 right-0 z-20 w-12 bg-gradient-to-l from-[#17332c] via-[#17332c]/70 to-transparent md:hidden"
+        aria-hidden="true"
+      />
+      <span
+        className="pointer-events-none absolute left-2 top-1/2 z-30 grid h-7 w-7 -translate-y-1/2 place-items-center rounded-full border border-[#efc877]/35 bg-[#17332c]/75 text-lg leading-none text-[#efc877]/75 shadow-lg backdrop-blur-sm md:hidden"
+        aria-hidden="true"
+      >
+        ‹
+      </span>
+      <span
+        className="pointer-events-none absolute right-2 top-1/2 z-30 grid h-7 w-7 -translate-y-1/2 place-items-center rounded-full border border-[#efc877]/35 bg-[#17332c]/75 text-lg leading-none text-[#efc877]/75 shadow-lg backdrop-blur-sm md:hidden"
+        aria-hidden="true"
+      >
+        ›
+      </span>
+
+      <div
+        className="hide-scrollbar overflow-x-auto pb-3"
+        tabIndex={0}
+        aria-label="Scrollable North Sikkim route map. Swipe left or right to explore the full route."
+      >
+        <div className="min-w-[1050px]">
         <svg viewBox="0 0 1530 760" className="h-auto w-full" role="img" aria-labelledby="route-map-title route-map-description">
           <title id="route-map-title">Journey map from Siliguri across North and East Sikkim</title>
           <desc id="route-map-description">
@@ -411,9 +437,10 @@ function JourneyMap() {
           </g>
           <g fill="#9ccbd4" fontSize="13" fontWeight="700" letterSpacing="2">
             <text x="1180" y="22" textAnchor="middle">LACHEN–GURUDONGMAR CIRCUIT</text>
-            <text x="1115" y="525" textAnchor="middle">LACHUNG–ZERO POINT CIRCUIT</text>
+            <text x="1115" y="585" textAnchor="middle">LACHUNG–ZERO POINT CIRCUIT</text>
           </g>
-        </svg>
+          </svg>
+        </div>
       </div>
     </div>
   );
@@ -503,6 +530,26 @@ export default function TourismPage() {
       <section className="relative isolate overflow-hidden bg-[#17332c] px-5 py-20 text-white sm:px-8 lg:px-10 lg:py-24">
         <TopographicBackground className="-z-10 text-white/10" />
         <BuddhistMandala className="-left-28 -top-28 -z-10 text-[#d6a54a]/10" />
+        <BuddhistMandala className="-bottom-24 -right-20 -z-10 text-[#9ccbd4]/10" />
+        <svg
+          viewBox="0 0 1440 240"
+          preserveAspectRatio="none"
+          className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-56 w-full"
+          aria-hidden="true"
+        >
+          <path
+            d="M0 220L145 154L260 193L420 108L560 184L705 132L835 191L990 96L1130 182L1280 126L1440 205V240H0Z"
+            fill="#9ccbd4"
+            opacity=".055"
+          />
+          <path
+            d="M0 220L145 154L260 193L420 108L560 184L705 132L835 191L990 96L1130 182L1280 126L1440 205"
+            fill="none"
+            stroke="#d6a54a"
+            strokeWidth="1.5"
+            opacity=".14"
+          />
+        </svg>
         <PrayerFlags />
 
         <div className="relative z-10 mx-auto max-w-7xl pt-10">
