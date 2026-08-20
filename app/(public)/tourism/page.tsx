@@ -305,19 +305,19 @@ function JourneyMap() {
     { d: "M865 250C900 205 925 155 970 138", label: "27 km · 1h 30m", x: 905, y: 193 },
     { d: "M1025 125C1060 105 1080 95 1125 92", label: "30 km · 1h 30m", x: 1065, y: 48 },
     { d: "M1180 92H1250", label: "10 km · 30m", x: 1215, y: 54 },
-    { d: "M1325 108C1380 165 1415 300 1430 432", label: "35 km · 1h 45m", x: 1412, y: 245 },
     { d: "M865 290C900 335 925 388 970 402", label: "22 km · 1h 15m", x: 905, y: 347 },
     { d: "M1025 418C1060 440 1080 447 1115 450", label: "25 km · 1h 15m", x: 1063, y: 394 },
     { d: "M1170 450H1205", label: "23 km · 1h", x: 1188, y: 410 },
+    { d: "M1315 450H1370", label: "Road link", x: 1343, y: 410 },
     { d: "M480 288C505 380 550 485 620 527", label: "38 km · 1h 30m", x: 536, y: 430 },
     { d: "M675 560C710 580 755 600 775 607", label: "18 km · 45m", x: 724, y: 570 },
   ];
 
   const highAltitudeLink = {
-    d: "M1278 442C1320 382 1375 382 1412 442",
-    label: "Restricted link",
-    x: 1347,
-    y: 372,
+    d: "M1325 108C1380 165 1415 300 1430 432",
+    label: "High-altitude road",
+    x: 1412,
+    y: 245,
   };
 
   const nodeColour = (kind: string) => {
@@ -333,7 +333,7 @@ function JourneyMap() {
         <svg viewBox="0 0 1530 760" className="h-auto w-full" role="img" aria-labelledby="route-map-title route-map-description">
           <title id="route-map-title">Journey map from Siliguri across North and East Sikkim</title>
           <desc id="route-map-description">
-            Routes from Siliguri through Darjeeling or Kalimpong join at Gangtok. The northern route continues through Mangan and Chungthang before dividing towards Lachung and Zero Point or Lachen and Gurudongmar Lake. An East Sikkim branch runs from Gangtok through Tsomgo Lake to Nathu La, and a high-altitude road links Gurudongmar with Zero Point.
+            Routes from Siliguri through Darjeeling or Kalimpong join at Gangtok. The northern route continues through Mangan and Chungthang before dividing towards Lachung and Zero Point or Lachen, Thangu and Chopta. Gurudongmar is joined to Zero Point by a regular route line, while the Chopta to Gurudongmar road is shown as a high-altitude link. An East Sikkim branch runs from Gangtok through Tsomgo Lake to Nathu La.
           </desc>
 
           <g fill="none" stroke="#d6a54a" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round">
@@ -516,7 +516,7 @@ export default function TourismPage() {
           </div>
 
           <JourneyMap />
-          <p className="mt-4 text-xs leading-5 text-white/45">Swipe the map sideways on mobile. Distances and driving times are approximate, and this journey schematic is not drawn to geographical scale. Access can change because of permits, weather and road conditions. The Gurudongmar–Zero Point high-altitude link may be restricted and is not part of the standard tourist circuit.</p>
+          <p className="mt-4 text-xs leading-5 text-white/45">Swipe the map sideways on mobile. Distances and driving times are approximate, and this journey schematic is not drawn to geographical scale. Access can change because of permits, weather and road conditions. The blue dashed Chopta–Gurudongmar link marks a high-altitude road that may be restricted and is not part of the standard tourist circuit.</p>
         </div>
       </section>
 
