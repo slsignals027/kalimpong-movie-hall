@@ -284,13 +284,15 @@ function JourneyMap() {
     { name: "Gangtok", x: 465, y: 270, kind: "main" },
     { name: "Mangan", x: 630, y: 270, kind: "main" },
     { name: "Chungthang", x: 805, y: 270, kind: "main" },
-    { name: "Lachung", x: 970, y: 135, kind: "north" },
-    { name: "Yumthang", x: 1125, y: 92, kind: "north" },
-    { name: "Zero Point", x: 1310, y: 92, kind: "destination" },
-    { name: "Lachen", x: 970, y: 405, kind: "north" },
-    { name: "Thangu", x: 1115, y: 450, kind: "north" },
-    { name: "Chopta", x: 1260, y: 450, kind: "north" },
+    { name: "Lachen", x: 970, y: 135, kind: "north" },
+    { name: "Thangu", x: 1125, y: 92, kind: "north" },
+    { name: "Chopta", x: 1310, y: 92, kind: "destination" },
+    { name: "Lachung", x: 970, y: 405, kind: "north" },
+    { name: "Yumthang", x: 1115, y: 450, kind: "north" },
+    { name: "Zero Point", x: 1260, y: 450, kind: "north" },
     { name: "Gurudongmar", x: 1430, y: 450, kind: "destination" },
+    { name: "Tsomgo Lake", x: 620, y: 545, kind: "destination" },
+    { name: "Nathu La", x: 830, y: 610, kind: "destination" },
   ];
 
   const paths = [
@@ -307,7 +309,12 @@ function JourneyMap() {
     "M1025 418C1060 440 1080 447 1115 450",
     "M1170 450H1205",
     "M1315 450H1370",
+    "M480 288C505 380 550 485 620 527",
+    "M675 560C710 580 755 600 775 607",
   ];
+
+  const highAltitudeLink =
+    "M1430 432C1500 350 1490 180 1324 108";
 
   const nodeColour = (kind: string) => {
     if (kind === "start") return "#d6a54a";
@@ -319,10 +326,10 @@ function JourneyMap() {
   return (
     <div className="hide-scrollbar overflow-x-auto pb-3" tabIndex={0} aria-label="Scrollable North Sikkim route map">
       <div className="min-w-[1050px]">
-        <svg viewBox="0 0 1530 540" className="h-auto w-full" role="img" aria-labelledby="route-map-title route-map-description">
-          <title id="route-map-title">Journey map from Siliguri to North Sikkim</title>
+        <svg viewBox="0 0 1530 710" className="h-auto w-full" role="img" aria-labelledby="route-map-title route-map-description">
+          <title id="route-map-title">Journey map from Siliguri across North and East Sikkim</title>
           <desc id="route-map-description">
-            Routes from Siliguri through Darjeeling or Kalimpong join at Gangtok, continue to Mangan and Chungthang, then divide towards Lachung and Zero Point or Lachen and Gurudongmar Lake.
+            Routes from Siliguri through Darjeeling or Kalimpong join at Gangtok. The northern route continues through Mangan and Chungthang before dividing towards Lachung and Zero Point or Lachen and Gurudongmar Lake. An East Sikkim branch runs from Gangtok through Tsomgo Lake to Nathu La, and a high-altitude road links Gurudongmar with Zero Point.
           </desc>
 
           <g fill="none" stroke="#d6a54a" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round">
@@ -330,6 +337,10 @@ function JourneyMap() {
           </g>
           <g fill="none" stroke="white" strokeWidth="2" strokeDasharray="8 11" opacity=".52">
             {paths.map((path) => <path key={path} d={path} />)}
+          </g>
+
+          <g fill="none" stroke="#9ccbd4" strokeWidth="5" strokeDasharray="14 10" strokeLinecap="round" opacity=".9">
+            <path d={highAltitudeLink} />
           </g>
 
           {places.map((place) => (
@@ -346,10 +357,12 @@ function JourneyMap() {
           <g fill="#d6a54a" fontSize="13" fontWeight="700" letterSpacing="2">
             <text x="270" y="43" textAnchor="middle">DARJEELING ROUTE</text>
             <text x="270" y="525" textAnchor="middle">KALIMPONG ROUTE</text>
+            <text x="720" y="690" textAnchor="middle">EAST SIKKIM · CHANGU–NATHU LA ROUTE</text>
           </g>
           <g fill="#9ccbd4" fontSize="13" fontWeight="700" letterSpacing="2">
             <text x="1125" y="35" textAnchor="middle">LACHUNG CIRCUIT</text>
             <text x="1260" y="525" textAnchor="middle">LACHEN–GURUDONGMAR CIRCUIT</text>
+            <text x="1480" y="270" textAnchor="middle" transform="rotate(-90 1480 270)">HIGH-ALTITUDE LINK</text>
           </g>
         </svg>
       </div>
@@ -454,7 +467,7 @@ export default function TourismPage() {
           </div>
 
           <JourneyMap />
-          <p className="mt-4 text-xs leading-5 text-white/45">Swipe the map sideways on mobile. This journey schematic is not drawn to geographical scale. Access can change because of permits, weather and road conditions.</p>
+          <p className="mt-4 text-xs leading-5 text-white/45">Swipe the map sideways on mobile. This journey schematic is not drawn to geographical scale. Access can change because of permits, weather and road conditions. The Gurudongmar–Zero Point high-altitude link may be restricted and is not part of the standard tourist circuit.</p>
         </div>
       </section>
 
