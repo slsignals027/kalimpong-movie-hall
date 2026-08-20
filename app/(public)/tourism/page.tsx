@@ -247,12 +247,13 @@ function SikkimJourneyBackground() {
   return (
     <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
       <Image
-        src="/tourism/sikkim-journey-background-draft.webp"
-        alt=""
-        fill
-        sizes="100vw"
-        className="object-cover object-center opacity-75"
-      />
+  src="https://res.cloudinary.com/bqt1b6pu/image/upload/v1787210807/sikkim-journey-background-draft.png"
+  alt=""
+  fill
+  unoptimized
+  sizes="100vw"
+  className="object-cover object-center opacity-75"
+/>
       <div className="absolute inset-0 bg-[#17332c]/38" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_20%,rgba(12,38,32,.32)_76%,rgba(12,38,32,.62)_100%)]" />
     </div>
