@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import TourismDestinationGrid from "./TourismDestinationGrid";
 import TourismJourneyMap from "./TourismJourneyMap";
 import {
   ArrowDown,
@@ -8,7 +9,6 @@ import {
   History,
   Landmark,
   Leaf,
-  MapPin,
   Route,
   ShieldCheck,
   Ticket,
@@ -573,42 +573,7 @@ export default function TourismPage() {
             <p className="mt-5 max-w-2xl text-base leading-7 text-[#17332c]/65">Explore sacred water, alpine valleys, mountain villages, waterfalls and the cultural landscapes of Mangan District.</p>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {destinations.map((destination, index) => (
-              <article
-                key={destination.name}
-                className={`destination-card reveal-on-scroll group overflow-hidden rounded-[2rem] border border-[#17332c]/10 bg-[#fffaf0] shadow-[0_18px_60px_rgba(23,51,44,.09)] ${destination.large ? "xl:col-span-2" : ""}`}
-                style={{ animationDelay: `${index * 85}ms` }}
-              >
-                <div className="relative h-72 overflow-hidden sm:h-80">
-                  <Image
-                    src={destination.image}
-                    alt={`${destination.name} in North Sikkim`}
-                    fill
-                    unoptimized
-                    sizes={destination.large ? "(max-width:768px) 100vw,(max-width:1280px) 50vw,66vw" : "(max-width:768px) 100vw,(max-width:1280px) 50vw,33vw"}
-                    className="object-cover transition duration-700 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" />
-                  <div className="destination-gold-overlay pointer-events-none absolute inset-0 bg-gradient-to-br from-[#efc877]/30 via-transparent to-[#d6a54a]/20 opacity-0" aria-hidden="true" />
-                  <span className={`absolute left-5 top-5 rounded-full px-3 py-1.5 text-[10px] font-bold uppercase tracking-[.16em] text-[#17332c] ${destination.accent}`}>{destination.category}</span>
-                  <h3 className="absolute bottom-5 left-5 right-5 text-3xl font-bold text-white sm:text-4xl">{destination.name}</h3>
-                </div>
-                <div className="p-6 sm:p-7">
-                  <p className="leading-7 text-[#17332c]/70">{destination.description}</p>
-                  <div className="mt-6 border-t border-[#17332c]/10 pt-5">
-                    <div className="flex gap-3">
-                      <MapPin size={19} className="mt-1 shrink-0 text-[#a06c2f]" />
-                      <div>
-                        <p className="text-xs font-bold uppercase tracking-[.18em] text-[#a06c2f]">How to reach</p>
-                        <p className="mt-2 text-sm leading-6 text-[#17332c]/65">{destination.reach}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
+          <TourismDestinationGrid destinations={destinations} />
         </div>
       </section>
 
