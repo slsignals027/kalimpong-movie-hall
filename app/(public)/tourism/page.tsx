@@ -27,9 +27,10 @@ const tourismImages = {
   parchment:
     "https://res.cloudinary.com/bqt1b6pu/image/upload/v1787147702/himalayan-parchment-background.png",
   gurudongmar:
-    "https://res.cloudinary.com/bqt1b6pu/image/upload/v1787122569/gurudongmar-lake.jpg",
+    "https://res.cloudinary.com/bqt1b6pu/image/upload/f_auto,q_auto,w_1400/v1787122569/gurudongmar-lake.jpg",
   yumthang:
-    "https://res.cloudinary.com/bqt1b6pu/image/upload/v1787122570/yumthang-valley.jpg",
+    "https://res.cloudinary.com/bqt1b6pu/image/upload/v1787213698/yumthang-valley.webp",
+    
   lachung:
     "https://res.cloudinary.com/bqt1b6pu/image/upload/v1787122570/lachung.jpg",
   lachen:
@@ -247,13 +248,12 @@ function SikkimJourneyBackground() {
   return (
     <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
       <Image
-  src="https://res.cloudinary.com/bqt1b6pu/image/upload/v1787210807/sikkim-journey-background-draft.png"
-  alt=""
-  fill
-  unoptimized
-  sizes="100vw"
-  className="object-cover object-center opacity-75"
-/>
+        src="/tourism/sikkim-journey-background-draft.webp"
+        alt=""
+        fill
+        sizes="100vw"
+        className="object-cover object-center opacity-75"
+      />
       <div className="absolute inset-0 bg-[#17332c]/38" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_20%,rgba(12,38,32,.32)_76%,rgba(12,38,32,.62)_100%)]" />
     </div>
@@ -523,6 +523,7 @@ export default function TourismPage() {
                     src={image}
                     alt=""
                     fill
+                    unoptimized
                     sizes="(max-width:768px) 100vw,33vw"
                     className="object-cover transition duration-700 hover:scale-105"
                   />
@@ -578,6 +579,7 @@ export default function TourismPage() {
                     src={destination.image}
                     alt={`${destination.name} in North Sikkim`}
                     fill
+                    unoptimized
                     sizes={destination.large ? "(max-width:768px) 100vw,(max-width:1280px) 50vw,66vw" : "(max-width:768px) 100vw,(max-width:1280px) 50vw,33vw"}
                     className="object-cover transition duration-700 group-hover:scale-105"
                   />
