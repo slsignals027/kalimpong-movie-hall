@@ -295,26 +295,24 @@ function JourneyMap() {
     { name: "Nathu La", x: 830, y: 610, kind: "destination" },
   ];
 
-  const paths = [
-    "M150 250C185 190 215 130 270 120",
-    "M330 120C390 145 415 225 465 252",
-    "M150 290C190 350 215 410 270 420",
-    "M330 420C390 390 420 310 465 288",
-    "M520 270H575",
-    "M685 270H745",
-    "M865 250C900 205 925 155 970 138",
-    "M1025 125C1060 105 1080 95 1125 92",
-    "M1180 92H1250",
-    "M865 290C900 335 925 388 970 402",
-    "M1025 418C1060 440 1080 447 1115 450",
-    "M1170 450H1205",
-    "M1315 450H1370",
-    "M480 288C505 380 550 485 620 527",
-    "M675 560C710 580 755 600 775 607",
+  const routes = [
+    { d: "M150 250C185 190 215 130 270 120", label: "63 km · 2h 30m", x: 178, y: 176 },
+    { d: "M330 120C390 145 415 225 465 252", label: "98 km · 4h", x: 394, y: 174 },
+    { d: "M150 290C190 350 215 410 270 420", label: "67 km · 2h 30m", x: 178, y: 354 },
+    { d: "M330 420C390 390 420 310 465 288", label: "75 km · 3h", x: 394, y: 367 },
+    { d: "M520 270H575", label: "65 km · 2h 30m", x: 548, y: 232 },
+    { d: "M685 270H745", label: "28 km · 1h 30m", x: 715, y: 232 },
+    { d: "M865 250C900 205 925 155 970 138", label: "27 km · 1h 30m", x: 905, y: 193 },
+    { d: "M1025 125C1060 105 1080 95 1125 92", label: "30 km · 1h 30m", x: 1065, y: 48 },
+    { d: "M1180 92H1250", label: "10 km · 30m", x: 1215, y: 136 },
+    { d: "M1325 108C1380 165 1415 300 1430 432", label: "35 km · 1h 45m", x: 1412, y: 245 },
+    { d: "M865 290C900 335 925 388 970 402", label: "22 km · 1h 15m", x: 905, y: 347 },
+    { d: "M1025 418C1060 440 1080 447 1115 450", label: "25 km · 1h 15m", x: 1063, y: 394 },
+    { d: "M1170 450H1205", label: "23 km · 1h", x: 1188, y: 410 },
+    { d: "M1315 450H1370", label: "Restricted link", x: 1343, y: 410 },
+    { d: "M480 288C505 380 550 485 620 527", label: "38 km · 1h 30m", x: 536, y: 430 },
+    { d: "M675 560C710 580 755 600 775 607", label: "18 km · 45m", x: 724, y: 570 },
   ];
-
-  const highAltitudeLink =
-    "M1430 432C1500 350 1490 180 1324 108";
 
   const nodeColour = (kind: string) => {
     if (kind === "start") return "#d6a54a";
@@ -333,15 +331,35 @@ function JourneyMap() {
           </desc>
 
           <g fill="none" stroke="#d6a54a" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round">
-            {paths.map((path) => <path key={path} d={path} />)}
+            {routes.map((route) => <path key={route.d} d={route.d} />)}
           </g>
           <g fill="none" stroke="white" strokeWidth="2" strokeDasharray="8 11" opacity=".52">
-            {paths.map((path) => <path key={path} d={path} />)}
+            {routes.map((route) => <path key={route.d} d={route.d} />)}
           </g>
 
-          <g fill="none" stroke="#9ccbd4" strokeWidth="5" strokeDasharray="14 10" strokeLinecap="round" opacity=".9">
-            <path d={highAltitudeLink} />
-          </g>
+          {routes.map((route) => (
+            <g key={`${route.label}-${route.x}-${route.y}`}>
+              <rect
+                x={route.x - 59}
+                y={route.y - 13}
+                width="118"
+                height="26"
+                rx="9"
+                fill="rgba(9,35,30,.92)"
+                stroke="rgba(214,165,74,.45)"
+              />
+              <text
+                x={route.x}
+                y={route.y + 4}
+                textAnchor="middle"
+                fill="#efc877"
+                fontSize="10"
+                fontWeight="700"
+              >
+                {route.label}
+              </text>
+            </g>
+          ))}
 
           {places.map((place) => (
             <g key={place.name}>
@@ -360,9 +378,8 @@ function JourneyMap() {
             <text x="720" y="690" textAnchor="middle">EAST SIKKIM · CHANGU–NATHU LA ROUTE</text>
           </g>
           <g fill="#9ccbd4" fontSize="13" fontWeight="700" letterSpacing="2">
-            <text x="1125" y="35" textAnchor="middle">LACHUNG CIRCUIT</text>
-            <text x="1260" y="525" textAnchor="middle">LACHEN–GURUDONGMAR CIRCUIT</text>
-            <text x="1480" y="270" textAnchor="middle" transform="rotate(-90 1480 270)">HIGH-ALTITUDE LINK</text>
+            <text x="1180" y="22" textAnchor="middle">LACHEN–GURUDONGMAR CIRCUIT</text>
+            <text x="1115" y="525" textAnchor="middle">LACHUNG–ZERO POINT CIRCUIT</text>
           </g>
         </svg>
       </div>
@@ -467,7 +484,7 @@ export default function TourismPage() {
           </div>
 
           <JourneyMap />
-          <p className="mt-4 text-xs leading-5 text-white/45">Swipe the map sideways on mobile. This journey schematic is not drawn to geographical scale. Access can change because of permits, weather and road conditions. The Gurudongmar–Zero Point high-altitude link may be restricted and is not part of the standard tourist circuit.</p>
+          <p className="mt-4 text-xs leading-5 text-white/45">Swipe the map sideways on mobile. Distances and driving times are approximate, and this journey schematic is not drawn to geographical scale. Access can change because of permits, weather and road conditions. The Gurudongmar–Zero Point high-altitude link may be restricted and is not part of the standard tourist circuit.</p>
         </div>
       </section>
 
