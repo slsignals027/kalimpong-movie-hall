@@ -163,11 +163,11 @@ function PrayerFlags() {
         {Array.from({ length: 20 }).map((_, index) => (
           <span
             key={index}
-            className="h-9 w-7 shrink-0 origin-top opacity-90 shadow-md sm:h-11 sm:w-9"
+            className="prayer-flag h-9 w-7 shrink-0 origin-top opacity-90 shadow-md sm:h-11 sm:w-9"
             style={{
               backgroundColor: colours[index % colours.length],
               clipPath: "polygon(0 0,100% 0,86% 100%,50% 82%,14% 100%)",
-              transform: `rotate(${index % 2 === 0 ? "-3deg" : "3deg"})`,
+              animationDelay: `${index * -0.18}s`,
             }}
           />
         ))}
@@ -242,6 +242,51 @@ function BuddhistMandala({ className = "" }: { className?: string }) {
   );
 }
 
+function SikkimJourneyBackground() {
+  return (
+    <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_26%,rgba(156,203,212,.08),transparent_30%),radial-gradient(circle_at_18%_68%,rgba(214,165,74,.07),transparent_28%)]" />
+      <svg viewBox="0 0 1440 760" preserveAspectRatio="xMidYMid slice" className="absolute inset-0 h-full w-full">
+        <defs>
+          <linearGradient id="sikkim-ridge-far" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stopColor="#9ccbd4" stopOpacity=".11" />
+            <stop offset="1" stopColor="#9ccbd4" stopOpacity=".015" />
+          </linearGradient>
+          <linearGradient id="sikkim-ridge-near" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stopColor="#d6a54a" stopOpacity=".09" />
+            <stop offset="1" stopColor="#d6a54a" stopOpacity=".01" />
+          </linearGradient>
+        </defs>
+
+        {/* Khangchendzonga-inspired ridges */}
+        <path d="M0 315L120 235l74 44 105-129 69 77 94-171 88 154 79-93 104 137 96-91 92 104 80-51 112 99 106-60 141 83v422H0Z" fill="url(#sikkim-ridge-far)" />
+        <path d="M0 432l125-79 100 57 115-102 111 98 112-142 98 121 119-85 101 117 127-101 118 100 98-64 116 87v321H0Z" fill="url(#sikkim-ridge-near)" />
+        <path d="M0 315L120 235l74 44 105-129 69 77 94-171 88 154 79-93 104 137 96-91 92 104 80-51 112 99 106-60 141 83" fill="none" stroke="#9ccbd4" strokeOpacity=".12" strokeWidth="1.5" />
+
+        {/* Teesta river ribbon */}
+        <path d="M-30 655C190 582 330 704 535 636S865 560 1045 633s301 15 435-57" fill="none" stroke="#9ccbd4" strokeOpacity=".075" strokeWidth="34" />
+        <path d="M-30 655C190 582 330 704 535 636S865 560 1045 633s301 15 435-57" fill="none" stroke="#f4ebdd" strokeOpacity=".09" strokeWidth="2" />
+
+        {/* Monastery roof silhouette */}
+        <g transform="translate(78 555)" fill="#d6a54a" opacity=".085">
+          <path d="M0 46h184v18H0zM28 20h128v28H28z" />
+          <path d="M10 22h164l-22-17H32zM42 2h100l-18-15H60z" />
+          <path d="M20 5h144l-18-8H38z" />
+          <rect x="45" y="45" width="12" height="35" /><rect x="83" y="45" width="12" height="35" /><rect x="126" y="45" width="12" height="35" />
+        </g>
+
+        {/* Faint eight-spoke Dharma wheel */}
+        <g transform="translate(1320 615)" fill="none" stroke="#d6a54a" strokeOpacity=".10" strokeWidth="2">
+          <circle r="76" /><circle r="53" /><circle r="10" />
+          {Array.from({ length: 8 }).map((_, index) => (
+            <line key={index} x1="0" y1="-12" x2="0" y2="-72" transform={`rotate(${index * 45})`} />
+          ))}
+        </g>
+      </svg>
+    </div>
+  );
+}
+
 function HeritageBackground() {
   return (
     <div
@@ -296,28 +341,29 @@ function JourneyMap() {
   ];
 
   const routes = [
-    { d: "M150 250C185 190 215 130 270 120", label: "63 km · 2h 30m", x: 178, y: 215 },
-    { d: "M330 120C390 145 415 225 465 252", label: "98 km · 4h", x: 394, y: 220 },
-    { d: "M150 290C190 350 215 410 270 420", label: "67 km · 2h 30m", x: 178, y: 390 },
-    { d: "M330 420C390 390 420 310 465 288", label: "75 km · 3h", x: 390, y: 465 },
-    { d: "M520 270H575", label: "65 km · 2h 30m", x: 548, y: 360 },
-    { d: "M685 270H745", label: "28 km · 1h 30m", x: 715, y: 360 },
-    { d: "M865 250C900 205 925 155 970 138", label: "27 km · 1h 30m", x: 905, y: 235 },
-    { d: "M1025 125C1060 105 1080 95 1125 92", label: "30 km · 1h 30m", x: 1065, y: 215 },
-    { d: "M1180 92H1250", label: "10 km · 30m", x: 1215, y: 178 },
-    { d: "M865 290C900 335 925 388 970 402", label: "22 km · 1h 15m", x: 880, y: 390 },
-    { d: "M1025 418C1060 440 1080 447 1115 450", label: "25 km · 1h 15m", x: 1045, y: 545 },
-    { d: "M1170 450H1205", label: "23 km · 1h", x: 1188, y: 545 },
-    { d: "M1278 442C1320 405 1375 405 1412 442", label: "Road link", x: 1345, y: 468 },
-    { d: "M480 288C505 380 550 485 620 527", label: "38 km · 1h 30m", x: 536, y: 470 },
-    { d: "M675 560C710 580 755 600 775 607", label: "18 km · 45m", x: 705, y: 625 },
+    { d: "M116 252C160 174 213 120 250 116", label: "63 km · 2h 30m", x: 178, y: 215 },
+    { d: "M290 116C370 133 410 232 445 260", label: "98 km · 4h", x: 394, y: 220 },
+    { d: "M116 288C165 369 220 420 250 424", label: "67 km · 2h 30m", x: 178, y: 390 },
+    { d: "M290 424C365 400 415 309 445 280", label: "75 km · 3h", x: 390, y: 465 },
+    { d: "M485 270H610", label: "65 km · 2h 30m", x: 548, y: 360 },
+    { d: "M650 270H785", label: "28 km · 1h 30m", x: 715, y: 360 },
+    { d: "M825 252C875 212 920 145 950 136", label: "27 km · 1h 30m", x: 905, y: 235 },
+    { d: "M990 133C1035 102 1080 92 1105 92", label: "30 km · 1h 30m", x: 1065, y: 215 },
+    { d: "M1145 92H1290", label: "10 km · 30m", x: 1215, y: 178 },
+    { d: "M825 288C875 337 920 397 950 404", label: "22 km · 1h 15m", x: 880, y: 390 },
+    { d: "M990 408C1035 435 1080 448 1095 450", label: "25 km · 1h 15m", x: 1045, y: 545 },
+    { d: "M1135 450H1240", label: "23 km · 1h", x: 1188, y: 545 },
+    { d: "M1280 443C1324 392 1384 392 1412 443", label: "Zero Point–Gurudongmar Link", x: 1345, y: 482 },
+    { d: "M474 289C505 396 565 520 612 538", label: "38 km · 1h 30m", x: 536, y: 470 },
+    { d: "M638 555C692 583 770 608 810 610", label: "18 km · 45m", x: 705, y: 625 },
   ];
 
   const highAltitudeLink = {
     d: "M1325 108C1380 165 1415 300 1430 432",
-    label: "High-altitude road",
+    label: "Restricted High-Altitude Road",
     x: 1375,
     y: 325,
+    restricted: true,
   };
 
   const nodeColour = (kind: string) => {
@@ -329,6 +375,12 @@ function JourneyMap() {
 
   return (
     <div className="relative">
+      <div className="mb-5 flex flex-wrap gap-x-5 gap-y-2 text-[10px] font-bold uppercase tracking-[.12em] text-white/55 sm:text-xs">
+        <span className="inline-flex items-center gap-2"><i className="h-0.5 w-7 rounded-full bg-[#d6a54a]" />Standard route</span>
+        <span className="inline-flex items-center gap-2"><i className="w-7 border-t-2 border-dashed border-[#9ccbd4]" />Restricted / high altitude</span>
+        <span className="inline-flex items-center gap-2"><i className="h-3 w-3 rounded-full bg-[#b7474d] ring-2 ring-white/50" />Entry route</span>
+        <span className="inline-flex items-center gap-2"><i className="h-3 w-3 rounded-full bg-[#9ccbd4] ring-2 ring-white/50" />Destination</span>
+      </div>
       <div
         className="pointer-events-none absolute inset-y-0 left-0 z-20 w-12 bg-gradient-to-r from-[#17332c] via-[#17332c]/70 to-transparent md:hidden"
         aria-hidden="true"
@@ -363,9 +415,9 @@ function JourneyMap() {
           </desc>
 
           <g fill="none" stroke="#d6a54a" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round">
-            {routes.map((route) => <path key={route.d} d={route.d} />)}
+            {routes.map((route) => <path className="route-draw route-segment" pathLength="1" key={route.d} d={route.d} />)}
           </g>
-          <g fill="none" stroke="white" strokeWidth="2" strokeDasharray="8 11" opacity=".52">
+          <g className="route-dashes" fill="none" stroke="white" strokeWidth="2" strokeDasharray="8 11" opacity=".52">
             {routes.map((route) => <path key={route.d} d={route.d} />)}
           </g>
 
@@ -377,45 +429,33 @@ function JourneyMap() {
             strokeLinecap="round"
             opacity=".9"
           >
-            <path d={highAltitudeLink.d} />
+            <path className="route-draw route-segment" pathLength="1" d={highAltitudeLink.d} />
           </g>
 
           {[...routes, highAltitudeLink].map((route) => (
             <g key={`${route.label}-${route.x}-${route.y}`}>
-              <line
-                x1={route.x - 61}
-                y1={route.y}
-                x2={route.x - 48}
-                y2={route.y}
-                stroke="#d6a54a"
-                strokeWidth="1.5"
-                opacity=".75"
+              <rect
+                x={route.x - Math.max(48, route.label.length * 3.3 + 12)}
+                y={route.y - 11}
+                width={Math.max(96, route.label.length * 6.6 + 24)}
+                height="22"
+                rx="11"
+                fill="#102b26"
+                fillOpacity=".94"
+                stroke={"restricted" in route ? "#9ccbd4" : "#d6a54a"}
+                strokeOpacity=".55"
               />
-              <circle cx={route.x - 43} cy={route.y} r="2" fill="#d6a54a" opacity=".9" />
               <text
                 x={route.x}
                 y={route.y + 3.5}
                 textAnchor="middle"
-                fill="#efc877"
-                stroke="#17332c"
-                strokeWidth="3"
-                paintOrder="stroke"
+                fill={"restricted" in route ? "#bfe4eb" : "#efc877"}
                 fontSize="9.5"
                 fontWeight="700"
                 letterSpacing=".25"
               >
                 {route.label}
               </text>
-              <circle cx={route.x + 43} cy={route.y} r="2" fill="#d6a54a" opacity=".9" />
-              <line
-                x1={route.x + 48}
-                y1={route.y}
-                x2={route.x + 61}
-                y2={route.y}
-                stroke="#d6a54a"
-                strokeWidth="1.5"
-                opacity=".75"
-              />
             </g>
           ))}
 
@@ -448,7 +488,7 @@ function JourneyMap() {
 
 export default function TourismPage() {
   return (
-    <main className="overflow-hidden bg-[#f4ebdd] text-[#17332c]">
+    <main className="tourism-page overflow-hidden bg-[#f4ebdd] text-[#17332c]">
       <section className="relative min-h-[72svh] overflow-hidden bg-[#092a36] text-white sm:min-h-[94svh]">
         <Image
           src={tourismImages.hero}
@@ -528,28 +568,7 @@ export default function TourismPage() {
       </section>
 
       <section className="relative isolate overflow-hidden bg-[#17332c] px-5 py-20 text-white sm:px-8 lg:px-10 lg:py-24">
-        <TopographicBackground className="-z-10 text-white/10" />
-        <BuddhistMandala className="-left-28 -top-28 -z-10 text-[#d6a54a]/10" />
-        <BuddhistMandala className="-bottom-24 -right-20 -z-10 text-[#9ccbd4]/10" />
-        <svg
-          viewBox="0 0 1440 240"
-          preserveAspectRatio="none"
-          className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-56 w-full"
-          aria-hidden="true"
-        >
-          <path
-            d="M0 220L145 154L260 193L420 108L560 184L705 132L835 191L990 96L1130 182L1280 126L1440 205V240H0Z"
-            fill="#9ccbd4"
-            opacity=".055"
-          />
-          <path
-            d="M0 220L145 154L260 193L420 108L560 184L705 132L835 191L990 96L1130 182L1280 126L1440 205"
-            fill="none"
-            stroke="#d6a54a"
-            strokeWidth="1.5"
-            opacity=".14"
-          />
-        </svg>
+        <SikkimJourneyBackground />
         <PrayerFlags />
 
         <div className="relative z-10 mx-auto max-w-7xl pt-10">

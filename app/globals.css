@@ -149,3 +149,112 @@ h3 {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+/* North Sikkim tourism animations */
+
+@keyframes tourism-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes prayer-flag-sway {
+  0%,
+  100% {
+    transform: rotate(-1.5deg) skewX(0deg);
+  }
+
+  50% {
+    transform: rotate(1.5deg) skewX(-1deg);
+  }
+}
+
+@keyframes route-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.prayer-flag {
+  animation: prayer-flag-sway 5.8s ease-in-out infinite;
+  will-change: transform;
+}
+
+.route-draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+
+.route-segment {
+  transition:
+    filter 300ms ease,
+    opacity 300ms ease,
+    stroke-width 300ms ease;
+}
+
+.route-segment:hover {
+  filter: drop-shadow(0 0 5px rgba(239, 200, 119, 0.7));
+  stroke-width: 8;
+}
+
+/* Start animations when elements enter the viewport */
+
+@supports (animation-timeline: view()) {
+  .reveal-on-scroll {
+    animation-name: tourism-reveal;
+    animation-duration: 0.8s;
+    animation-fill-mode: both;
+    animation-timing-function: ease-out;
+    animation-timeline: view();
+    animation-range: entry 8% cover 28%;
+  }
+
+  .route-draw {
+    animation-name: route-draw;
+    animation-duration: 1.35s;
+    animation-fill-mode: both;
+    animation-timing-function: ease-out;
+    animation-timeline: view();
+    animation-range: entry 10% cover 38%;
+  }
+
+  .route-dashes {
+    animation: tourism-reveal 0.8s ease-out both;
+    animation-timeline: view();
+    animation-range: entry 25% cover 42%;
+  }
+}
+
+/* Accessibility: disable effects when reduced motion is enabled */
+
+@media (prefers-reduced-motion: reduce) {
+  .tourism-page *,
+  .tourism-page *::before,
+  .tourism-page *::after {
+    animation: none !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .reveal-on-scroll {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .route-draw {
+    stroke-dashoffset: 0 !important;
+  }
+
+  .tourism-page .group:hover img {
+    transform: none !important;
+  }
+}
