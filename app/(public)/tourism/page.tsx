@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import TourismJourneyMap from "./TourismJourneyMap";
 import {
   ArrowDown,
   Compass,
@@ -245,44 +246,15 @@ function BuddhistMandala({ className = "" }: { className?: string }) {
 function SikkimJourneyBackground() {
   return (
     <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_26%,rgba(156,203,212,.08),transparent_30%),radial-gradient(circle_at_18%_68%,rgba(214,165,74,.07),transparent_28%)]" />
-      <svg viewBox="0 0 1440 760" preserveAspectRatio="xMidYMid slice" className="absolute inset-0 h-full w-full">
-        <defs>
-          <linearGradient id="sikkim-ridge-far" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stopColor="#9ccbd4" stopOpacity=".11" />
-            <stop offset="1" stopColor="#9ccbd4" stopOpacity=".015" />
-          </linearGradient>
-          <linearGradient id="sikkim-ridge-near" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stopColor="#d6a54a" stopOpacity=".09" />
-            <stop offset="1" stopColor="#d6a54a" stopOpacity=".01" />
-          </linearGradient>
-        </defs>
-
-        {/* Khangchendzonga-inspired ridges */}
-        <path d="M0 315L120 235l74 44 105-129 69 77 94-171 88 154 79-93 104 137 96-91 92 104 80-51 112 99 106-60 141 83v422H0Z" fill="url(#sikkim-ridge-far)" />
-        <path d="M0 432l125-79 100 57 115-102 111 98 112-142 98 121 119-85 101 117 127-101 118 100 98-64 116 87v321H0Z" fill="url(#sikkim-ridge-near)" />
-        <path d="M0 315L120 235l74 44 105-129 69 77 94-171 88 154 79-93 104 137 96-91 92 104 80-51 112 99 106-60 141 83" fill="none" stroke="#9ccbd4" strokeOpacity=".12" strokeWidth="1.5" />
-
-        {/* Teesta river ribbon */}
-        <path d="M-30 655C190 582 330 704 535 636S865 560 1045 633s301 15 435-57" fill="none" stroke="#9ccbd4" strokeOpacity=".075" strokeWidth="34" />
-        <path d="M-30 655C190 582 330 704 535 636S865 560 1045 633s301 15 435-57" fill="none" stroke="#f4ebdd" strokeOpacity=".09" strokeWidth="2" />
-
-        {/* Monastery roof silhouette */}
-        <g transform="translate(78 555)" fill="#d6a54a" opacity=".085">
-          <path d="M0 46h184v18H0zM28 20h128v28H28z" />
-          <path d="M10 22h164l-22-17H32zM42 2h100l-18-15H60z" />
-          <path d="M20 5h144l-18-8H38z" />
-          <rect x="45" y="45" width="12" height="35" /><rect x="83" y="45" width="12" height="35" /><rect x="126" y="45" width="12" height="35" />
-        </g>
-
-        {/* Faint eight-spoke Dharma wheel */}
-        <g transform="translate(1320 615)" fill="none" stroke="#d6a54a" strokeOpacity=".10" strokeWidth="2">
-          <circle r="76" /><circle r="53" /><circle r="10" />
-          {Array.from({ length: 8 }).map((_, index) => (
-            <line key={index} x1="0" y1="-12" x2="0" y2="-72" transform={`rotate(${index * 45})`} />
-          ))}
-        </g>
-      </svg>
+      <Image
+        src="/tourism/sikkim-journey-background-draft.webp"
+        alt=""
+        fill
+        sizes="100vw"
+        className="object-cover object-center opacity-75"
+      />
+      <div className="absolute inset-0 bg-[#17332c]/38" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_20%,rgba(12,38,32,.32)_76%,rgba(12,38,32,.62)_100%)]" />
     </div>
   );
 }
@@ -321,7 +293,7 @@ function OrnamentDivider() {
   );
 }
 
-function JourneyMap() {
+export function JourneyMapStaticReference() {
   const places = [
     { name: "Siliguri", x: 95, y: 270, kind: "start" },
     { name: "Darjeeling", x: 270, y: 115, kind: "branch" },
@@ -581,7 +553,7 @@ export default function TourismPage() {
             <p className="mt-4 max-w-3xl leading-7 text-white/60">Begin at Siliguri, travel through Darjeeling or Kalimpong, continue through Gangtok, Mangan and Chungthang, then follow the Lachung or Lachen mountain circuit.</p>
           </div>
 
-          <JourneyMap />
+          <TourismJourneyMap />
           <p className="mt-4 text-xs leading-5 text-white/45">Swipe the map sideways on mobile. Distances and driving times are approximate, and this journey schematic is not drawn to geographical scale. Access can change because of permits, weather and road conditions. The blue dashed Chopta–Gurudongmar link marks a high-altitude road that may be restricted and is not part of the standard tourist circuit.</p>
         </div>
       </section>
