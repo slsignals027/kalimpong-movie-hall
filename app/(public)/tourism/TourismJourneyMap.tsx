@@ -37,8 +37,8 @@ type Place = {
 
 const images = {
   hero: "https://res.cloudinary.com/bqt1b6pu/image/upload/f_auto,q_auto/v1787147821/ChatGPT_Image_Aug_19_2026_07_26_40_PM.png",
-  gurudongmar: "https://res.cloudinary.com/bqt1b6pu/image/upload/f_auto,q_auto/v1787122569/gurudongmar-lake.jpg",
-  yumthang: "https://res.cloudinary.com/bqt1b6pu/image/upload/f_auto,q_auto/v1787122570/yumthang-valley.jpg",
+  gurudongmar: "https://res.cloudinary.com/bqt1b6pu/image/upload/f_auto,q_auto,w_1400/v1787122569/gurudongmar-lake.jpg",
+  yumthang: "https://res.cloudinary.com/bqt1b6pu/image/upload/f_auto,q_auto,w_1400/v1787122570/yumthang-valley.jpg",
   lachung: "https://res.cloudinary.com/bqt1b6pu/image/upload/f_auto,q_auto/v1787122570/lachung.jpg",
   lachen: "https://res.cloudinary.com/bqt1b6pu/image/upload/f_auto,q_auto/v1787122569/lachen.jpg",
   thangu: "https://res.cloudinary.com/bqt1b6pu/image/upload/f_auto,q_auto/v1787122568/thangu-valley.jpg",
