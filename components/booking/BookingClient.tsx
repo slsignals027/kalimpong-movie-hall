@@ -4,6 +4,7 @@ import { useState } from "react";
 import SeatLayout from "./SeatLayout";
 import { confirmBooking } from "@/actions/booking";
 import { useRouter } from "next/navigation";
+import { downloadBookingTicket } from "@/components/booking/downloadBookingTicket";
 
 type Props = {
   movieTitle: string;
@@ -22,7 +23,11 @@ export default function BookingClient({
 }: Props) {
   const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
   const router = useRouter();
+  const [saving, setSaving] = useState(false);
+  const [saveMessage, setSaveMessage] = useState("");
  async function handleBooking() {
+  if (saving) return;
+  setSaving(true);
   const result = await confirmBooking(
     showId,
     selectedSeats
@@ -30,10 +35,17 @@ export default function BookingClient({
 
   if (!result.success) {
     alert(result.message);
+    setSaving(false);
     return;
   }
 
-  alert("Booking Confirmed!");
+  if (result.bookingNumber) {
+    try {
+      downloadBookingTicket({ bookingNumber: result.bookingNumber, movieTitle, showDate, showTime, seats: selectedSeats });
+    } catch {
+      setSaveMessage("Booking confirmed. You can save your ticket from My Bookings.");
+    }
+  }
 
   router.push("/my-bookings");
 }
@@ -129,11 +141,12 @@ onClick={handleBooking}
       ? "cursor-not-allowed bg-gray-400"
       : "bg-[#1B4332] hover:bg-[#143526]"
   }`}
-  disabled={selectedSeats.length === 0}
+  disabled={selectedSeats.length === 0 || saving}
 >
-  Confirm Booking
+  {saving ? "Confirming..." : "Confirm Booking"}
 </button>
 
+            {saveMessage && <p role="status" className="mt-3 text-sm text-[#1B4332]">{saveMessage}</p>}
           </div>
 
         </div>

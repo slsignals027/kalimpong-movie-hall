@@ -67,7 +67,7 @@ export default async function Shows() {
                 </h3>
 
                 <p className="text-gray-500">
-                  {show.showTime}
+                  {show.showDate.toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" })} · {show.showTime}
                 </p>
 
                 <div className="mt-5 h-3 overflow-hidden rounded-full bg-gray-200">
