@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import HomeButton from "@/components/common/HomeButton";
+import SaveBookingTicket from "@/components/booking/SaveBookingTicket";
 
 
 export default async function MyBookingsPage() {
@@ -174,6 +175,13 @@ export default async function MyBookingsPage() {
 
               </div>
 
+              <SaveBookingTicket
+                bookingNumber={booking.bookingNumber}
+                movieTitle={booking.show.movie.title}
+                showDate={booking.show.showDate.toLocaleDateString("en-IN", { weekday: "long", day: "numeric", month: "long", year: "numeric", timeZone: "UTC" })}
+                showTime={booking.show.showTime}
+                seats={booking.seats.map((seat) => seat.seatNumber)}
+              />
             </div>
 
           ))}
