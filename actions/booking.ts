@@ -30,7 +30,7 @@ export async function confirmBooking(
       Date.now() +
       Math.floor(Math.random() * 1000);
 
-    await prisma.$transaction(async (tx) => {
+    const booking = await prisma.$transaction(async (tx) => {
 
       const existing = await tx.booking.findMany({
         where: {
@@ -72,6 +72,7 @@ export async function confirmBooking(
         })),
       });
 
+      return booking;
     });
 
     revalidatePath(`/booking/${showId}`);
@@ -79,6 +80,7 @@ export async function confirmBooking(
     return {
       success: true,
       message: "Booking Confirmed",
+      bookingNumber: booking.bookingNumber,
     };
 
   } catch (error) {
